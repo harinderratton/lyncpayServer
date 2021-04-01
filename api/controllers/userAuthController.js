@@ -23,18 +23,19 @@ UserTable = mongoose.model('UserTable');
 
 //function Names
 exports.sendOTP = sendOTP;
+exports.confirmOTP = confirmOTP;
 
 //functions logic
 async function sendOTP(req, res, next) {
-
 
 	try {
 		const {phone} = req.body;
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     var OTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
+    var hashedOTP = passwordHash.generate(OTP);
     const data = {
       phone: phone,
-      otp: OTP
+      otp: hashedOTP
     }
 
     const newData = new OTPTable(data);
@@ -46,6 +47,36 @@ async function sendOTP(req, res, next) {
 
     
    
+	} catch (err) {
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+
+
+
+async function confirmOTP(req, res, next) {
+
+	try {
+		const {phone, otp} = req.body;
+
+    if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
+    if(errors.indexOf(otp)>=0) return res.json({ status: false, msg: "Please provide the otp." });
+
+    
+ 
+    var isOTP = await OTPTable.findOne({phone: phone});
+    var isMatch;
+
+    if(isOTP!=null) {
+      isMatch =  passwordHash.verify(otp, isOTP.otp) ?  true : false
+    }
+    else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+    if(isMatch) return res.json({ status: false, msg: "Your phone number is verified!" });
+    else return res.json({ status: false, msg: "You have provided a wrong OTP!" });
+
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}

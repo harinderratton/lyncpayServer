@@ -1,9 +1,10 @@
 'use strict';
 module.exports = function(app) {
 
-var users = require('../controllers/UsersCtrl');
+var userAuth = require('../controllers/userAuthController');
 
 //owner routes start
-		app.route('/sendOTP')
-		.post(users.sendOTP)
+		app.route('/sendOTP').post(userAuth.sendOTP)
+
+		app.route('/confirmOTP').post(userAuth.confirmOTP)
 };
