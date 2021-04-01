@@ -1,6 +1,6 @@
 'use strict';
 var constants = require('../constants/constants'),
-errors = ['', null, undefined,' null', 'undefined', 0];
+errors = ["", null, undefined];
 
 //modules
 var mongoose = require('mongoose'),
@@ -30,7 +30,9 @@ async function sendOTP(req, res, next) {
  
 	try {
 		const {phone} = req.body;
-    throughError('its another message')
+    if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
+    console.log('passed');
+   
  
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
@@ -39,19 +41,7 @@ async function sendOTP(req, res, next) {
 }
 
 
-
-async function throughError(msg) {
-
-	try {
-
-    return res.json({ status: false, msg: msg });
  
-	} catch (err) {
-		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
-	}
-
-}
-
 
 
  
