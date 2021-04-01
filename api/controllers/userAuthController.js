@@ -40,7 +40,7 @@ async function sendOTP(req, res, next) {
 
     const newData = new OTPTable(data);
     newData.save(function(mongoErr, mongoRes){
-      if(mongoErr == null)  return res.json({ status: true, msg: "An OTP is sent to "+ phone});
+      if(mongoErr == null)  return res.json({ status: true, msg: "An OTP is sent to "+ phone, otp: OTP});
       else  return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 
     })
@@ -64,8 +64,6 @@ async function verifiyOTP(req, res, next) {
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     if(errors.indexOf(otp)>=0) return res.json({ status: false, msg: "Please provide the otp." });
 
-    
- 
     var isOTP = await OTPTable.findOne({phone: phone});
     var isMatch;
 
