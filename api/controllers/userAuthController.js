@@ -68,6 +68,8 @@ async function verifiyOTP(req, res, next) {
     var isMatch;
 
     if(isOTP!=null) {
+      console.log(isOTP);
+      console.log(otp);
       isMatch =  passwordHash.verify(otp, isOTP.otp) ?  true : false
     }
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
