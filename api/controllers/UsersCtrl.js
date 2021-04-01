@@ -31,8 +31,8 @@ async function sendOTP(req, res, next) {
 
  
 	try {
-		const {phone} = req.body;
-    return;
+		const {phone} = reqa.body;
+ 
  
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
