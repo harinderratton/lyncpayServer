@@ -18,7 +18,7 @@ multer = require('multer');
  
 
 //tables
-OTPTable = mongoose.model('OTPTable'),
+var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable');
 
 
