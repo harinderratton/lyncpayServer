@@ -38,7 +38,7 @@ async function sendOTP(req, res, next) {
     const newData = new OTPTable(data);
     newData.save(function(err, res){
       if(res!=null)  return res.json({ status: true, msg: "An OTP is sent to "+ phone});
-      else 	return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+      else  return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 
     })
 
