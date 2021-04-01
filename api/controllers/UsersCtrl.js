@@ -21,18 +21,30 @@ multer = require('multer');
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable');
 
-
 //function Names
 exports.sendOTP = sendOTP;
-
 
 //functions logic
 async function sendOTP(req, res, next) {
 
  
 	try {
-		const {phone} = reqa.body;
+		const {phone} = req.body;
+    return throughError('its another message')
  
+	} catch (err) {
+		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
+	}
+
+}
+
+
+
+async function throughError(msg) {
+
+	try {
+
+    return res.json({ status: false, msg: msg });
  
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
