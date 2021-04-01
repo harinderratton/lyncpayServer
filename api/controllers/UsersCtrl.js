@@ -27,15 +27,25 @@ exports.sendOTP = sendOTP;
 //functions logic
 async function sendOTP(req, res, next) {
 
- 
+
 	try {
 		const {phone} = req.body;
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
-    console.log('passed');
+    const data = {
+      phone: phone
+    }
+
+    const newData = new OTPTable(data);
+    newData.save(function(err, res){
+      if(res!=null)  return res.json({ status: true, msg: "An OTP is sent to "+ phone});
+      else 	return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+
+    })
+
+    
    
- 
 	} catch (err) {
-		return res.status(401).send({ status: false, msg: "Something Went Wrong.Please Try Again!" });
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
 
 }
