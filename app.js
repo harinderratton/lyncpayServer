@@ -8,7 +8,7 @@ var express = require('express'),
   
 //mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/'); // live
-mongoose.connect('mongodb://localhost/match', { useMongoClient: true }); // local
+mongoose.connect('mongodb://localhost/lyncpay', { useMongoClient: true }); // local
 var path = __dirname;
 app.use('/server/data', express.static(path + '/data'));
 
