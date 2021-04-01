@@ -1,6 +1,6 @@
 'use strict';
 var constants = require('../constants/constants'),
-errors = ['', null, undefined,' null', 'undefined', 0],
+errors = ['', null, undefined,' null', 'undefined', 0];
 
 //modules
 var mongoose = require('mongoose'),
