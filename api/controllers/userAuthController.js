@@ -64,7 +64,7 @@ async function verifiyOTP(req, res, next) {
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     if(errors.indexOf(otp)>=0) return res.json({ status: false, msg: "Please provide the otp." });
 
-    var isOTP = await OTPTable.findOne({phone: phone});
+    var isOTP = await OTPTable.findOne({phone: phone}, {}, { sort: { 'createdAt' : -1 }});
     var isMatch;
 
     if(isOTP!=null) {
