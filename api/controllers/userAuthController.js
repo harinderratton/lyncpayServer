@@ -23,7 +23,7 @@ UserTable = mongoose.model('UserTable');
 
 //function Names
 exports.sendOTP = sendOTP;
-exports.confirmOTP = confirmOTP;
+exports.verifiyOTP = verifiyOTP;
 
 //functions logic
 async function sendOTP(req, res, next) {
@@ -56,7 +56,7 @@ async function sendOTP(req, res, next) {
 
 
 
-async function confirmOTP(req, res, next) {
+async function verifiyOTP(req, res, next) {
 
 	try {
 		const {phone, otp} = req.body;
