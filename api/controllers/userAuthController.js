@@ -32,10 +32,10 @@ async function sendOTP(req, res, next) {
 		const {phone} = req.body;
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     var OTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
-    var hashedOTP = passwordHash.generate(String(OTP));
+    // var hashedOTP = passwordHash.generate(String(OTP));
     const data = {
       phone: phone,
-      otp: hashedOTP
+      otp: OTP
     }
 
     const newData = new OTPTable(data);
@@ -71,8 +71,9 @@ async function verifiyOTP(req, res, next) {
 
       console.log(isOTP);
       console.log(otp);
-      console.log(passwordHash.verify(String(otp), isOTP.otp));
-      isMatch = passwordHash.verify(String(otp), isOTP.otp) ?  true : false;
+     
+      // isMatch = passwordHash.verify(String(otp), isOTP.otp) ?  true : false;
+      isMatch = otp == isOTP.otp ?  true : false;
 
     }
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
