@@ -71,7 +71,7 @@ async function verifiyOTP(req, res, next) {
 
       console.log(isOTP);
       console.log(otp);
-      console.log(passwordHash.verify(Number(otp), isOTP.otp));
+      console.log(passwordHash.verify(String(otp), isOTP.otp));
       isMatch = passwordHash.verify(Number(otp), isOTP.otp) ?  true : false;
 
     }
