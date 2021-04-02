@@ -74,7 +74,7 @@ async function verifiyOTP(req, res, next) {
     }
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
-    if(isMatch) return res.json({ status: false, msg: "Your phone number is verified!" });
+    if(isMatch) return res.json({ status: true, msg: "Your phone number is verified!" });
     else return res.json({ status: false, msg: "You have provided a wrong OTP!" });
 
 	} catch (err) {
