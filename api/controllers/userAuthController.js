@@ -67,12 +67,11 @@ async function verifiyOTP(req, res, next) {
     var isOTP = await OTPTable.findOne({phone: phone}, {}, { sort: { 'createdAt' : -1 }});
     var isMatch;
 
-    if(isOTP!=null) {
+    if(isOTP != null) {
 
       console.log(isOTP);
       console.log(otp);
-
-      isMatch = passwordHash.verify(String(otp), isOTP.otp) ?  true : false;
+      isMatch = passwordHash.verify(Number(otp), isOTP.otp) ?  true : false;
 
     }
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
