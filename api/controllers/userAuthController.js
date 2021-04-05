@@ -192,11 +192,19 @@ async function finishPersonalisation(req, res, next) {
 
 	try {
 
-    // let{ email } = req.params
-      
+   
+    const {email, name} = req.body;
+    if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+    if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
     filesUpload.uploadPic(req, res, function(err){
+    
+      UserTable.updateOne({email: email}, {name: name}, function(err, response){
 
-     console.log('req.body', req.body);
+        if(err == null) return res.json({ status: true, msg: "Personalising is done"});
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+      })
+   
 
     } )
 
