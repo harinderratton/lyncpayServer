@@ -11,4 +11,5 @@ var userAuth = require('../controllers/userAuthController');
 		app.route('/finishPersonalisation').post(userAuth.finishPersonalisation)
 		app.route('/setPushNotifications').post(userAuth.setPushNotifications)
 		app.route('/setEmailNotifications').post(userAuth.setEmailNotifications)
+		app.route('/getMyContacts').post(userAuth.getMyContacts)
 };
