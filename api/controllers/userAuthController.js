@@ -13,7 +13,7 @@ arraySort = require('array-sort'),
 NodeGeocoder = require('node-geocoder'),
 fs = require('fs'),
 sg = require('sendgrid')(constants.SENDGRID_ID),
-multer = require('multer');
+multer = require('multer'),
 filesUpload = require('../logic/uploadFiles');
 
  
