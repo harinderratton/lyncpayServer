@@ -6,5 +6,5 @@ var userAuth = require('../controllers/userAuthController');
 //owner routes start
 		app.route('/sendOTP').post(userAuth.sendOTP)
 		app.route('/verifiyOTP').post(userAuth.verifiyOTP)
-		app.route('/createUser').post(userAuth.createUser)
+		app.route('/checkInTable').post(userAuth.checkInTable)
 };

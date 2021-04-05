@@ -24,6 +24,7 @@ UserTable = mongoose.model('UserTable');
 //function Names
 exports.sendOTP = sendOTP;
 exports.verifiyOTP = verifiyOTP;
+exports.checkInTable = checkInTable;
 exports.createUser = createUser;
 
 //functions logic
@@ -101,26 +102,22 @@ async function verifiyOTP(req, res, next) {
 
 
 
-async function createUser(req, res, next) {
+async function checkInTable(req, res, next) {
 
 	try {
 
-		const {phone, otp} = req.body;
-    if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
-    if(errors.indexOf(otp)>=0) return res.json({ status: false, msg: "Please provide the otp." });
+		const {field, table} = req.body;
+    if(errors.indexOf(field)>=0) return res.json({ status: false, msg: "Please provide the field." });
+    if(errors.indexOf(table)>=0) return res.json({ status: false, msg: "Please provide the table." });
 
-    var isOTP = await OTPTable.findOne({phone: phone}, {}, { sort: { 'createdAt' : -1 }});
-    var isMatch;
+    if(table == 'users'){
+      UserTable.find({field: field}, function(err, response){
 
-    if(isOTP!=null) {
+        if(response.length!=0) return res.json({ status: true}); 
+        else return res.json({ status: false}); 
 
-      isMatch = passwordHash.verify(otp, isOTP.otp) ?  true : false;
-
+      })
     }
-    else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-
-    if(isMatch) return res.json({ status: true, msg: "Your phone number is verified!" });
-    else return res.json({ status: false, msg: "You have provided a wrong OTP!" });
 
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
