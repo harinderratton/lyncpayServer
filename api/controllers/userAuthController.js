@@ -173,7 +173,7 @@ async function tryLogin(req, res, next) {
       return res.json({ status: true, msg: "Access permitted", data: isUser});
     }
    
-    else return res.json({ status: false, msg: "You have provided a wrong OTP!"});
+    else return res.json({ status: false, msg: "You have provided wrong password"});
 
 	} catch (err) {
     console.log('Catch Error', err);
