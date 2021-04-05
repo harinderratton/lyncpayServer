@@ -29,6 +29,7 @@ exports.checkInTable = checkInTable;
 exports.tryLogin = tryLogin;
 exports.finishPersonalisation = finishPersonalisation;
 exports.setPushNotifications = setPushNotifications;
+exports.setEmailNotifications = setEmailNotifications;
 
 //functions logic
 async function sendOTP(req, res, next) {
@@ -223,6 +224,30 @@ async function setPushNotifications(req, res, next) {
       if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
       if(errors.indexOf(isAllow)>=0) return res.json({ status: false, msg: "Please provide the isAllow." });
       UserTable.updateOne({email: email}, {pushNotifications: isAllow}, function(err, response){
+
+        if(err == null) return res.json({ status: true, msg: "Push notifications are enabled"});
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+      })
+   
+ 
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+
+async function setEmailNotifications(req, res, next) {
+
+	try {
+ 
+      const {id, isAllow} = req.body;
+      if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+      if(errors.indexOf(isAllow)>=0) return res.json({ status: false, msg: "Please provide the isAllow." });
+      UserTable.updateOne({_id: id}, {emailNotifications: isAllow}, function(err, response){
 
         if(err == null) return res.json({ status: true, msg: "Push notifications are enabled"});
         else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 

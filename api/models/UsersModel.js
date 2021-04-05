@@ -19,6 +19,7 @@ var UserSchema = new mongoose.Schema({
 	personalised: {type: String, default:0},
     pushNotifications: {type: String, default:0}, //1 for enable, 3 for disabled
 	isAccountCompleted: {type: String, default:0},
+	emailNotifications: {type: String, default:1}
 
 }, {timestamps: true});
 
