@@ -15,7 +15,8 @@ var UserSchema = new mongoose.Schema({
 	country: {type: String, default:null},
 	zip: {type: String, default:null},
 	status:{type: String},
-	stripe_id:{type: String}
+	stripe_id:{type: String},
+	personalised: {type: String, default:0},
 
 }, {timestamps: true});
 
