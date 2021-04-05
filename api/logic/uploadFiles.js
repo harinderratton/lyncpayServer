@@ -1,6 +1,4 @@
-const config = require('config');
 const multer  = require('multer');
-const path = require('path');
 
 const uploadUserPic = multer.diskStorage({
   destination: function(req, file, callback) {
