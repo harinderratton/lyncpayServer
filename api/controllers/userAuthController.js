@@ -164,7 +164,7 @@ async function tryLogin(req, res, next) {
 
     if(isUser!=null) {
 
-      isMatch = passwordHash.verify(password, isUser.password) ?  true : false;
+      var isMatch = passwordHash.verify(password, isUser.password) ?  true : false;
 
     }
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
