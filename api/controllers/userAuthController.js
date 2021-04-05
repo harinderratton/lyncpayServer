@@ -176,6 +176,7 @@ async function tryLogin(req, res, next) {
     else return res.json({ status: false, msg: "You have provided a wrong OTP!"});
 
 	} catch (err) {
+    console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
 
