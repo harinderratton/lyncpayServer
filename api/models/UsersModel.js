@@ -4,8 +4,7 @@ var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
 	pic: {type: String, default:null},
-	fname: String,
-	lname: String,
+    name:  {type: String, default:null},
 	phone: Number,
 	email:{type: String, lowercase: true, trim: true,},
 	uid:{type: String, default:null},
