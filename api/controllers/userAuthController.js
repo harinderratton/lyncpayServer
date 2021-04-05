@@ -105,12 +105,12 @@ async function checkInTable(req, res, next) {
 
 	try {
 
-		const {field, table} = req.body;
-    if(errors.indexOf(field)>=0) return res.json({ status: false, msg: "Please provide the field." });
-    if(errors.indexOf(table)>=0) return res.json({ status: false, msg: "Please provide the table." });
+    if(req.body.case == 'checkEmail'){
 
-    if(table == 'users'){
-      UserTable.find({field: field}, function(err, response){
+      const {email} = req.body;
+      if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+     
+      UserTable.find({email: email}, function(err, response){
 
         if(response.length==0) return res.json({ status: true}); 
         else return res.json({ status: false}); 
