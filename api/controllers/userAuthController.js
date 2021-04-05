@@ -64,6 +64,8 @@ async function verifiyOTP(req, res, next) {
 
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     if(errors.indexOf(otp)>=0) return res.json({ status: false, msg: "Please provide the otp." });
+    if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+    if(errors.indexOf(password)>=0) return res.json({ status: false, msg: "Please provide password." });
 
     var isOTP = await OTPTable.findOne({phone: phone}, {}, { sort: { 'createdAt' : -1 }});
     var isMatch;
@@ -91,7 +93,7 @@ async function verifiyOTP(req, res, next) {
 
 
   function createUser(email, phone, password){
-    var newData = new UserTable({email: email, phone:phone, password:password});
+    var newData = new UserTable({email: email, phone:phone, password:passwordHash.generate(password)});
     return newData.save()
   }
 
