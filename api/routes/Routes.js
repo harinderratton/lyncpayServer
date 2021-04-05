@@ -8,4 +8,5 @@ var userAuth = require('../controllers/userAuthController');
 		app.route('/verifiyOTP').post(userAuth.verifiyOTP)
 		app.route('/checkInTable').post(userAuth.checkInTable)
 		app.route('/tryLogin').post(userAuth.tryLogin)
+		app.route('/finishPersonalisation').post(userAuth.finishPersonalisation)
 };

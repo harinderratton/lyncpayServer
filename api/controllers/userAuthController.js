@@ -14,6 +14,7 @@ NodeGeocoder = require('node-geocoder'),
 fs = require('fs'),
 sg = require('sendgrid')(constants.SENDGRID_ID),
 multer = require('multer');
+filesUpload = require('../logic/uploadFiles');
 
  
 
@@ -26,6 +27,7 @@ exports.sendOTP = sendOTP;
 exports.verifiyOTP = verifiyOTP;
 exports.checkInTable = checkInTable;
 exports.tryLogin = tryLogin;
+exports.finishPersonalisation = finishPersonalisation;
 
 //functions logic
 async function sendOTP(req, res, next) {
@@ -161,7 +163,7 @@ async function tryLogin(req, res, next) {
 
     var isUser = await UserTable.findOne({email: email}, {}, { sort: { 'createdAt' : -1 }});
     
-
+    
     if(isUser!=null) {
 
       var isMatch = passwordHash.verify(password, isUser.password) ?  true : false;
@@ -170,10 +172,33 @@ async function tryLogin(req, res, next) {
     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
     if(isMatch) {
+
       return res.json({ status: true, msg: "Access permitted", data: isUser});
     }
    
     else return res.json({ status: false, msg: "You have provided wrong password"});
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+
+
+
+async function finishPersonalisation(req, res, next) {
+
+	try {
+
+    // let{ email } = req.params
+      
+    filesUpload.uploadPic(req, res, function(err){
+
+     console.log('req.body', req.body);
+
+    } )
 
 	} catch (err) {
     console.log('Catch Error', err);
