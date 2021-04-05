@@ -112,7 +112,9 @@ async function checkInTable(req, res, next) {
      
       UserTable.find({email: email}, function(err, response){
 
-        if(response.length==0) return res.json({ status: true}); 
+        console.log(response);
+
+        if(response.length == 0) return res.json({ status: true}); 
         else return res.json({ status: false}); 
 
       })
