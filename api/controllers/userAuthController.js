@@ -25,7 +25,6 @@ UserTable = mongoose.model('UserTable');
 exports.sendOTP = sendOTP;
 exports.verifiyOTP = verifiyOTP;
 exports.checkInTable = checkInTable;
-exports.createUser = createUser;
 
 //functions logic
 async function sendOTP(req, res, next) {
