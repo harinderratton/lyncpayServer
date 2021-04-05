@@ -120,6 +120,22 @@ async function checkInTable(req, res, next) {
       })
     }
 
+
+    else if(req.body.case == 'checkPhone'){
+
+      const {phone} = req.body;
+      if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
+     
+      UserTable.find({phone: phone}, function(err, response){
+
+        console.log(response);
+
+        if(response.length == 0) return res.json({ status: true}); 
+        else return res.json({ status: false}); 
+
+      })
+    }
+
 	} catch (err) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
