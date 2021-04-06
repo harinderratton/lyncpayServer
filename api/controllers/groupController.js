@@ -35,7 +35,7 @@ async function getMyContacts(req, res, next) {
       const {id} = req.body;
       if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
  
-      UserTable.find(function(err, response){
+      UserTable.find({_id: {$ne: id}},function(err, response){
 
         if(response.length !=0) return res.json({ status: true, data: response});
         else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
