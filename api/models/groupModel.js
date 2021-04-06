@@ -7,6 +7,7 @@ var groupSchema = new mongoose.Schema({
 	pic: {type: String, default:null},
     name:  {type: String, required: true},
     members: {type: [], default:[]},
+    paymentStatus:  {type: String, default: 1},
 
 }, {timestamps: true});
 
