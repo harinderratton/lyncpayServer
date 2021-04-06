@@ -104,8 +104,8 @@ async function getMyGroups(req, res, next) {
                             allMembers.push(userDetails);
                             cont1++
                             if (cont1 == key.members.length){
-
-                                dist.push({
+                            
+                                var dist = {
                                     admin: key.admin,
                                     createdAt: key.createdAt, 
                                     members: allMembers, 
@@ -113,7 +113,7 @@ async function getMyGroups(req, res, next) {
                                     paymentStatus: key.paymentStatus, 
                                     pic: key.pic,
                                     _id: key._id, 
-                                })
+                                }
 
                                 groupList.push(dist);
 
