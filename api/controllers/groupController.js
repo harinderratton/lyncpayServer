@@ -54,26 +54,27 @@ async function getMyContacts(req, res, next) {
 async function createNewGroup(req, res, next) {
 
 	try {
- 
-      const {id, selectedIDS, name} = req.body;
-      if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
-      if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
-      if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+           filesUpload.uploadPic(req, res, function(err){
+               
+                const {id, selectedIDS, name} = req.body;
+                if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+                if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
+                if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
 
-      var newGroup = new GroupTable({
-        admin: id,
-        name: name,
-        members: JSON.parse(selectedIDS)
-      })
- 
-      newGroup.save(function(err, response){
+                var newGroup = new GroupTable({
+                    admin: id,
+                    name: name,
+                    members: JSON.parse(selectedIDS)
+                })
+            
+                newGroup.save(function(err, response){
 
-        if(err == null) return res.json({ status: true, msg: 'Group has been created'});
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+                    if(err == null) return res.json({ status: true, msg: 'Group has been created'});
+                    else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
-      })
+                })
    
-
+       });
 	} catch (err) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
