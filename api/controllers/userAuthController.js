@@ -22,7 +22,7 @@ filesUpload = require('../logic/uploadFiles');
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable');
 
-//function Names
+//exported functions
 exports.sendOTP = sendOTP;
 exports.verifiyOTP = verifiyOTP;
 exports.checkInTable = checkInTable;
@@ -30,7 +30,6 @@ exports.tryLogin = tryLogin;
 exports.finishPersonalisation = finishPersonalisation;
 exports.setPushNotifications = setPushNotifications;
 exports.setEmailNotifications = setEmailNotifications;
-exports.getMyContacts = getMyContacts;
 
 //functions logic
 async function sendOTP(req, res, next) {
@@ -263,35 +262,4 @@ async function setEmailNotifications(req, res, next) {
 	}
 
 }
-
-
-
-async function getMyContacts(req, res, next) {
-
-	try {
- 
-      const {id} = req.body;
-      if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
- 
-      UserTable.find(function(err, response){
-
-        if(response.length !=0) return res.json({ status: true, data: response});
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-
-      })
-   
-
-	} catch (err) {
-    console.log('Catch Error', err);
-		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
-	}
-
-}
-
- 
-
-
- 
-
-
  
