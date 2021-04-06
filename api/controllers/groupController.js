@@ -102,14 +102,16 @@ async function getMyGroups(req, res, next) {
                         for(let key1 of key.members){
                             var userDetails = await UserTable.findOne({_id: key1}, '_id name pic');
                             allMembers.push(userDetails);
-                            cont1++
+                            cont1++ 
                             if (cont1 == key.members.length){
                             
+                                var name =  key.name.split(' ');
                                 var dist = {
                                     admin: key.admin,
                                     createdAt: key.createdAt, 
                                     members: allMembers, 
-                                    name: key.name, 
+                                    name1: name[0].split('')[0].toUpperCase(),
+                                    name2:  name[1].split('')[0].toUpperCase(),
                                     paymentStatus: key.paymentStatus, 
                                     pic: key.pic,
                                     _id: key._id, 
