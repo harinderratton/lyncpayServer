@@ -90,13 +90,47 @@ async function getMyGroups(req, res, next) {
                 const {id} = req.body;
                 if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
 
-                GroupTable.find({admin: id}, function(err, response){
+                var response1 = await GroupTable.find({admin: id});
 
-                    if(response.length!= 0) return res.json({ status: true, msg: 'Groups list', data: response});
-                    else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+                if(response1.length!= 0) {
+                    var cont = 0 ;
+                    var groupList = [];
+                    for(let key of response1){
+                        cont++
+                        var allMembers = [];
+                        var cont1 = 0 ;
+                        for(let key1 of key.members){
+                            var userDetails = await UserTable.findOne({_id: key1});
+                            allMembers.push(userDetails);
+                            cont1++
+                            if (cont1 == key.members.length){
 
-                })
-   
+                                dist.push({
+                                    admin: key.admin,
+                                    createdAt: key.createdAt, 
+                                    members: allMembers, 
+                                    name: key.name, 
+                                    paymentStatus: key.paymentStatus, 
+                                    pic: key.pic,
+                                    _id: key._id, 
+                                })
+
+                                groupList.push(dist);
+
+
+                                if(cont == response1.length) return res.json({ status: true, msg: 'groups list', data: groupList});
+
+                            } 
+                        }
+
+                       
+                       
+
+                    }
+
+
+                }
+                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
     
 	} catch (err) {
     console.log('Catch Error', err);
