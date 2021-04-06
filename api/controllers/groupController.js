@@ -110,6 +110,7 @@ async function getMyGroups(req, res, next) {
                                     admin: key.admin,
                                     createdAt: key.createdAt, 
                                     members: allMembers, 
+                                    name: key.name,
                                     name1: name[0].split('')[0].toUpperCase(),
                                     name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
                                     paymentStatus: key.paymentStatus, 
