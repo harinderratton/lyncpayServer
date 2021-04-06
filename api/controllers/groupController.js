@@ -100,7 +100,7 @@ async function getMyGroups(req, res, next) {
                         var allMembers = [];
                         var cont1 = 0 ;
                         for(let key1 of key.members){
-                            var userDetails = await UserTable.findOne({_id: key1});
+                            var userDetails = await UserTable.findOne({_id: key1}, '_id name pic');
                             allMembers.push(userDetails);
                             cont1++
                             if (cont1 == key.members.length){
