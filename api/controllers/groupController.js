@@ -61,11 +61,12 @@ async function createNewGroup(req, res, next) {
                 if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
                 if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
-
+                var ids = JSON.parse(selectedIDS);
+                var newIDS = ids.push(id)
                 var newGroup = new GroupTable({
                     admin: id,
                     name: name,
-                    members: JSON.parse(selectedIDS)
+                    members: newIDS
                 })
             
                 newGroup.save(function(err, response){
