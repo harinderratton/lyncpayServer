@@ -17,5 +17,6 @@ app.route('/setEmailNotifications').post(userAuth.setEmailNotifications)
 //group routes start
 app.route('/getMyContacts').post(userGroups.getMyContacts)
 app.route('/createNewGroup').post(userGroups.createNewGroup)
+app.route('/getMyGroups').post(userGroups.getMyGroups)
 
 };
