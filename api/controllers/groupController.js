@@ -57,7 +57,8 @@ async function createNewGroup(req, res, next) {
 	try {
            filesUpload.uploadPic(req, res, function(err){
 
-                const {id, selectedIDS, name} = req.body;
+               var {id, selectedIDS, name} = req.body;
+                 
                 if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
                 if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
