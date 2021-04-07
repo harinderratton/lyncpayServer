@@ -61,7 +61,10 @@ async function createNewGroup(req, res, next) {
                 if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
                 if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+                console.log(selectedIDS);
                 var ids = JSON.parse(selectedIDS);
+                console.log(ids);
+
                 var newIDS = ids.push(id)
                 console.log({
                     admin: id,
