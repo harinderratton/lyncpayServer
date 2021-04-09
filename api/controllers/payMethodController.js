@@ -39,7 +39,6 @@ async function addNewCreditCard(req, res, next) {
       if(errors.indexOf(cardHolderEmail)>=0) return res.json({ status: false, msg: "Please provide the cardHolderEmail." });
       if(errors.indexOf(token)>=0) return res.json({ status: false, msg: "Please provide the token." });
  
-
             // Create a Customer:
             const customer = await stripe.customers.create({
             source: token,
@@ -49,8 +48,6 @@ async function addNewCreditCard(req, res, next) {
             if(errors.indexOf(customer)>=0) return res.json({ status: false, msg: "we Could not add this card at this moment." });
             else saveCard();
         
-            return res.json({ status: false, msg: "Please provide the token." });
-
            function saveCard(){
 
             var newData = new CreditCardTable({
