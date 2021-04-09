@@ -26,6 +26,7 @@ CreditCardTable = mongoose.model('CreditCardTable');
 
 //exported functions
 exports.addNewCreditCard = addNewCreditCard;
+exports.getMyPaymethods = getMyPaymethods;
  
 
 async function addNewCreditCard(req, res, next) {
@@ -75,6 +76,32 @@ async function addNewCreditCard(req, res, next) {
 	}
 
 }
+
+
+
+
+async function getMyPaymethods(req, res, next) {
+
+	try {
+ 
+      const {id} = req.body;
+      if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+ 
+      CreditCardTable.find({userId: id},function(err, response){
+
+        if(response.length !=0) return res.json({ status: true, data: response});
+        else return res.json({ status: false, msg: "No saved cards found!" }); 
+
+      })
+   
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
 
 
  

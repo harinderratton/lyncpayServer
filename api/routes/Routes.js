@@ -23,6 +23,6 @@ app.route('/getMyGroups').post(userGroups.getMyGroups)
 
 //payment methods routes start
 app.route('/addNewCreditCard').post(payMethods.addNewCreditCard)
+app.route('/getMyPaymethods').post(payMethods.getMyPaymethods)
  
-
 };
