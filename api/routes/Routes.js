@@ -3,6 +3,7 @@ module.exports = function(app) {
 
 var userAuth = require('../controllers/userAuthController');
 var userGroups = require('../controllers/groupController');
+var payMethods = require('../controllers/payMethodController');
 
 //user routes start
 app.route('/sendOTP').post(userAuth.sendOTP)
@@ -18,5 +19,10 @@ app.route('/setEmailNotifications').post(userAuth.setEmailNotifications)
 app.route('/getMyContacts').post(userGroups.getMyContacts)
 app.route('/createNewGroup').post(userGroups.createNewGroup)
 app.route('/getMyGroups').post(userGroups.getMyGroups)
+
+
+//payment methods routes start
+app.route('/addNewCreditCard').post(payMethods.addNewCreditCard)
+ 
 
 };
