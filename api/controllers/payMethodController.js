@@ -14,6 +14,7 @@ NodeGeocoder = require('node-geocoder'),
 fs = require('fs'),
 sg = require('sendgrid')(constants.SENDGRID_ID),
 multer = require('multer'),
+stripe = require('stripe')(constants.STRIPE_KEY),
 filesUpload = require('../logic/uploadFiles');
 
  
@@ -31,26 +32,39 @@ async function addNewCreditCard(req, res, next) {
 
 	try {
  
-      const {userId, cardHolderName, cardNumber, cardCVV, cardExpiryDate } = req.body;
+      const {userId, cardHolderName, cardNumber, cardCVV, cardExpiryDate, token } = req.body;
       if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
       if(errors.indexOf(cardHolderName)>=0) return res.json({ status: false, msg: "Please provide the cardHolderName." });
       if(errors.indexOf(cardNumber)>=0) return res.json({ status: false, msg: "Please provide the cardNumber." });
       if(errors.indexOf(cardCVV)>=0) return res.json({ status: false, msg: "Please provide the cardCVV." });
       if(errors.indexOf(cardExpiryDate)>=0) return res.json({ status: false, msg: "Please provide the cardExpiryDate." });
+      if(errors.indexOf(cardHolderEmail)>=0) return res.json({ status: false, msg: "Please provide the cardHolderEmail." });
+      if(errors.indexOf(token)>=0) return res.json({ status: false, msg: "Please provide the token." });
  
-      var newData = new CreditCardTable({
-        cardHolderName:  cardHolderName,
-        cardNumber: cardNumber,
-        cardCvv:  cardCVV,
-        cardExpiryDate:cardExpiryDate
-      })
 
-      newData.save(function(err, response){
+            // Create a Customer:
+            const customer = await stripe.customers.create({
+            source: token,
+            email: cardHolderEmail,
+            });
 
-        if(err == null) return res.json({ status: true, msg: 'New card is added'});
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+            console.log('customercustomer', customer)
 
-      })
+           
+    //   var doesCardExist
+    //   var newData = new CreditCardTable({
+    //     cardHolderName:  cardHolderName,
+    //     cardNumber: cardNumber,
+    //     cardCvv:  cardCVV,
+    //     cardExpiryDate:cardExpiryDate
+    //   })
+
+    //   newData.save(function(err, response){
+
+    //     if(err == null) return res.json({ status: true, msg: 'New card is added'});
+    //     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+    //   })
    
 
 	} catch (err) {
