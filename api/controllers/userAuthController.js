@@ -16,8 +16,6 @@ sg = require('sendgrid')(constants.SENDGRID_ID),
 multer = require('multer'),
 filesUpload = require('../logic/uploadFiles');
 
- 
-
 //tables
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable');
@@ -171,7 +169,7 @@ async function tryLogin(req, res, next) {
       var isMatch = passwordHash.verify(password, isUser.password) ?  true : false;
 
     }
-    else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+    else return res.json({ status: false, msg: "Either your email or password is wrong"}); 
 
     if(isMatch) {
 
@@ -254,8 +252,6 @@ async function setEmailNotifications(req, res, next) {
 
       })
    
- 
-
 	} catch (err) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
