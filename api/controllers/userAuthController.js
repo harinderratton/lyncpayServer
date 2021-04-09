@@ -36,6 +36,7 @@ async function sendOTP(req, res, next) {
 		const {phone} = req.body;
     if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone number." });
     var OTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
+    console.log('OTP', OTP);
     var hashedOTP = passwordHash.generate(OTP);
     const data = {
       phone: phone,
