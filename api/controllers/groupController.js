@@ -51,6 +51,7 @@ async function getMyContacts(req, res, next) {
                             isAccountCompleted: key.isAccountCompleted,
                             name1: name[0].split('')[0].toUpperCase(),
                             name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
+                            name:  key.name,
                             password: key.password,
                             personalised: key.personalised,
                             phone: key.phone,
