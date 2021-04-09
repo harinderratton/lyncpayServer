@@ -20,7 +20,7 @@ filesUpload = require('../logic/uploadFiles');
 
 //tables
 var GroupTable = mongoose.model('GroupTable'),
-UserTable = mongoose.model('UserTable');
+UserTable = mongoose.model('UserTable'),
 CreditCardTable = mongoose.model('CreditCardTable');
 
 //exported functions
