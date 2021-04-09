@@ -37,7 +37,40 @@ async function getMyContacts(req, res, next) {
  
       UserTable.find({_id: {$ne: id}},function(err, response){
 
-        if(response.length !=0) return res.json({ status: true, data: response});
+        if(response.length !=0) {
+            var cont = 0;
+            var allContacts = [];
+            for(let key of response){
+                var dist = {
+                            city: key.city,
+                            country: key.country,
+                            createdAt: key.createdAt,
+                            email: key.email,
+                            emailNotifications: key.emailNotifications,
+                            isAccountCompleted: key.isAccountCompleted,
+                            name: key.name,
+                            password: key.password,
+                            personalised: key.personalised,
+                            phone: key.phone,
+                            pic: key.pic,
+                            pushNotifications: key.pushNotifications,
+                            state: key.state,
+                            uid: key.uid,
+                            updatedAt: key.updatedAt,
+                            zip: key.zip,                          
+                            _id: key._id,
+                }
+
+                allContacts.push(dist);
+                cont++;
+
+                if(cont == response.length){
+                    return res.json({ status: true, data: allContacts});
+                }
+                
+
+            }
+        }
         else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
       })
