@@ -36,8 +36,6 @@ async function addNewCreditCard(req, res, next) {
       if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
       if(errors.indexOf(cardHolderName)>=0) return res.json({ status: false, msg: "Please provide the cardHolderName." });
       if(errors.indexOf(cardNumber)>=0) return res.json({ status: false, msg: "Please provide the cardNumber." });
-      if(errors.indexOf(cardCVV)>=0) return res.json({ status: false, msg: "Please provide the cardCVV." });
-      if(errors.indexOf(cardExpiryDate)>=0) return res.json({ status: false, msg: "Please provide the cardExpiryDate." });
       if(errors.indexOf(cardHolderEmail)>=0) return res.json({ status: false, msg: "Please provide the cardHolderEmail." });
       if(errors.indexOf(token)>=0) return res.json({ status: false, msg: "Please provide the token." });
  
@@ -48,25 +46,30 @@ async function addNewCreditCard(req, res, next) {
             email: cardHolderEmail,
             });
 
-            console.log('customercustomer', customer)
-
+            if(errors.indexOf(customer)>=0) return res.json({ status: false, msg: "we Could not add this card at this moment." });
+            else saveCard();
+        
             return res.json({ status: false, msg: "Please provide the token." });
 
-           
-    //   var doesCardExist
-    //   var newData = new CreditCardTable({
-    //     cardHolderName:  cardHolderName,
-    //     cardNumber: cardNumber,
-    //     cardCvv:  cardCVV,
-    //     cardExpiryDate:cardExpiryDate
-    //   })
+           function saveCard(){
 
-    //   newData.save(function(err, response){
+            var newData = new CreditCardTable({
+              cardHolderName:  cardHolderName,
+              cardNumber: cardNumber.slice(12, 16),
+              userId: userId,
+              customerId: customer.id,
+              default_source: customer.default_source
+            })
+  
+            newData.save(function(err, response){
+  
+              if(err == null) return res.json({ status: true, msg: 'New card is added'});
+              else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+  
+            })
 
-    //     if(err == null) return res.json({ status: true, msg: 'New card is added'});
-    //     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+           }
 
-    //   })
    
 
 	} catch (err) {
