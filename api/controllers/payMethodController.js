@@ -50,6 +50,8 @@ async function addNewCreditCard(req, res, next) {
 
             console.log('customercustomer', customer)
 
+            return res.json({ status: false, msg: "Please provide the token." });
+
            
     //   var doesCardExist
     //   var newData = new CreditCardTable({
