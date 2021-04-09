@@ -36,6 +36,7 @@ async function addNewCreditCard(req, res, next) {
       const {userId, cardHolderName, cardNumber, cardCVV, cardExpiryDate, token, cardHolderEmail } = req.body;
 
       console.log(cardNumber);
+
       if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
       if(errors.indexOf(cardHolderName)>=0) return res.json({ status: false, msg: "Please provide the cardHolderName." });
       if(errors.indexOf(cardNumber)>=0) return res.json({ status: false, msg: "Please provide the cardNumber." });
@@ -55,7 +56,7 @@ async function addNewCreditCard(req, res, next) {
 
             var newData = new CreditCardTable({
               cardHolderName:  cardHolderName,
-              cardNumber: cardNumber.slice(12, 16),
+              cardNumber: cardNumber.slice(" ")[3],
               userId: userId,
               customerId: customer.id,
               default_source: customer.default_source
