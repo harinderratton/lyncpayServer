@@ -56,7 +56,7 @@ async function addNewCreditCard(req, res, next) {
 
             var newData = new CreditCardTable({
               cardHolderName:  cardHolderName,
-              cardNumber: cardNumber.slice(" ")[3],
+              cardNumber: cardNumber.split(" ")[3],
               userId: userId,
               customerId: customer.id,
               default_source: customer.default_source
