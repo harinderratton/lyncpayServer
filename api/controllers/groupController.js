@@ -41,6 +41,7 @@ async function getMyContacts(req, res, next) {
             var cont = 0;
             var allContacts = [];
             for(let key of response){
+                var name =  key.name.split(' ');
                 var dist = {
                             city: key.city,
                             country: key.country,
@@ -48,7 +49,8 @@ async function getMyContacts(req, res, next) {
                             email: key.email,
                             emailNotifications: key.emailNotifications,
                             isAccountCompleted: key.isAccountCompleted,
-                            name: key.name,
+                            name1: name[0].split('')[0].toUpperCase(),
+                            name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
                             password: key.password,
                             personalised: key.personalised,
                             phone: key.phone,
