@@ -218,7 +218,7 @@ async function finishPersonalisation(req, res, next) {
 async function setPushNotifications(req, res, next) {
 
 	try {
- 
+      console.log(req.body)
       const {email, isAllow} = req.body;
       if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
       if(errors.indexOf(isAllow)>=0) return res.json({ status: false, msg: "Please provide the isAllow." });
