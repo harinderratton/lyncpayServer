@@ -38,7 +38,7 @@ async function getLyncpayUsers(req, res, next) {
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
         
         var numbers = JSON.parse(myAllNumbers);
-        var allContacts = await UserTable.find({ phone: {$in : numbers }});
+        var response = await UserTable.find({ phone: {$in : numbers }});
 
         if(allContacts.length!= null){
             if(response.length !=0) {
