@@ -33,6 +33,8 @@ async function getLyncpayUsers(req, res, next) {
 	try {
  
         const {myAllNumbers} = req.body;
+
+        console.log(myAllNumbers);
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
         
         var numbers = JSON.parse(myAllNumbers);
