@@ -54,7 +54,7 @@ async function getLyncpayUsers(req, res, next) {
                             isAccountCompleted: key.isAccountCompleted,
                             name1: name[0].split('')[0].toUpperCase(),
                             name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
-                            name: (name[0].charAt(0).toUpperCase() + name[0].slice(1)) + (name[1] != undefined ? name[1].charAt(0).toUpperCase() + name[1].slice(1) : null),
+                            name: (name[0].charAt(0).toUpperCase() + name[0].slice(1)) + (name[1] != undefined ? name[1].charAt(0).toUpperCase() + name[1].slice(1) : ''),
                             password: key.password,
                             personalised: key.personalised,
                             phone: key.phone,
