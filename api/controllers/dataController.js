@@ -1,0 +1,44 @@
+'use strict';
+var constants = require('../constants/constants'),
+errors = ["", null, undefined];
+
+//modules
+var mongoose = require('mongoose'),
+path = require('path'),
+passwordHash = require('password-hash'),
+otpGenerator = require('otp-generator'),
+FCM = require('fcm-node'),
+fcm = new FCM(constants.FCM_SERVER_KEY),
+arraySort = require('array-sort'),
+NodeGeocoder = require('node-geocoder'),
+fs = require('fs'),
+sg = require('sendgrid')(constants.SENDGRID_ID),
+multer = require('multer'),
+filesUpload = require('../logic/uploadFiles');
+
+ 
+
+//tables
+var GroupTable = mongoose.model('GroupTable'),
+UserTable = mongoose.model('UserTable');
+
+//exported functions
+exports.getLyncpayUsers = getLyncpayUsers;
+ 
+ 
+//functions defination
+
+async function getLyncpayUsers(req, res, next) {
+
+	try {
+ 
+        console.log(req.body);
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+ 
