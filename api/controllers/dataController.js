@@ -40,7 +40,45 @@ async function getLyncpayUsers(req, res, next) {
         var numbers = JSON.parse(myAllNumbers);
         var allContacts = await UserTable.find({ phone: {$in : numbers }});
 
-        if(allContacts.length!= null) return res.json({ status: true, data: allContacts});
+        if(allContacts.length!= null){
+            if(response.length !=0) {
+                var cont = 0;
+                var allContacts = [];
+                for(let key of response){
+                    var name =  key.name.split(' ');
+                    var dist = {
+                                city: key.city,
+                                country: key.country,
+                                createdAt: key.createdAt,
+                                email: key.email,
+                                emailNotifications: key.emailNotifications,
+                                isAccountCompleted: key.isAccountCompleted,
+                                name1: name[0].split('')[0].toUpperCase(),
+                                name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
+                                name:  key.name,
+                                password: key.password,
+                                personalised: key.personalised,
+                                phone: key.phone,
+                                pic: key.pic,
+                                pushNotifications: key.pushNotifications,
+                                state: key.state,
+                                uid: key.uid,
+                                updatedAt: key.updatedAt,
+                                zip: key.zip,                          
+                                _id: key._id,
+                    }
+    
+                    allContacts.push(dist);
+                    cont++;
+    
+                    if(cont == response.length){
+                        return res.json({ status: true, data: allContacts});
+                    }
+                    
+    
+                }
+            }
+        }
         else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         
 
