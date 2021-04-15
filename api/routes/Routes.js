@@ -28,7 +28,7 @@ app.route('/getMyPaymethods').post(payMethods.getMyPaymethods)
 
 
 //general data controller routes start
-app.route('/getLyncpayUsers').post(payMethods.getLyncpayUsers)
+app.route('/getLyncpayUsers').post(dataControllerMethods.getLyncpayUsers)
  
- 
+
 };
