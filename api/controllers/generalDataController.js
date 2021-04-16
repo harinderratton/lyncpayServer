@@ -97,7 +97,7 @@ async function updateUserProfileData(req, res, next) {
 
     filesUpload.uploadPic(req, res, function(err){
 
-        console.log(req.body);
+        console.log(req.params);
     //   const {email, name} = req.body;
     //   if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
     //   if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
