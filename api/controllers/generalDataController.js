@@ -152,7 +152,7 @@ async function updateUserAuthPassword(req, res, next) {
 
        var isMatch = passwordHash.verify(oldPassword, userDetails.password) ?  true : false;
 
-       if(!isMatch) return res.json({ status: false, msg: 'You have provided a wrong current password.'});
+       if(!isMatch) return res.json({ status: false, msg: 'Provided current password is wrong.'});
 
 
         UserTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
