@@ -34,8 +34,6 @@ async function getLyncpayUsers(req, res, next) {
 	try {
  
         const {myAllNumbers} = req.body;
-
-        console.log(myAllNumbers);
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
         
         var numbers = JSON.parse(myAllNumbers);
@@ -95,18 +93,35 @@ async function updateUserProfileData(req, res, next) {
 
 	try {
 
-    filesUpload.uploadPic(req, res, function(err){
+        const {id, email, phone} = req.params;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+        if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+        if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
 
-        console.log(req.params);
-    //   const {email, name} = req.body;
-    //   if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
-    //   if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
-    //   UserTable.updateOne({email: email}, {name: name, personalised: 1}, function(err, response){
+        UserTable.find({email: email, id: {$ne :id}}, function(err, response){
+      
+        if(response.length != 0) return res.json({ status: false, msg: 'This email is already in use, Please use another'});
+    
+          })
 
-    //     if(err == null) return res.json({ status: true, msg: "Personalising is done"});
-    //     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        UserTable.find({phone: email, id: {$ne :id}}, function(err, response){
+    
+        if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
 
-    //   })
+
+        })
+ 
+
+        filesUpload.uploadPic(req, res, function(err){
+
+
+        UserTable.updateOne({_id: id}, {name: req.body.name, phone: phone, email: email}, function(err, response){
+
+            var userData = await UserTable.findOne({_id: id});
+            if(err == null) return res.json({ status: true, msg: "Profile is updated", data: userData});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+        })
    
 
     } )
