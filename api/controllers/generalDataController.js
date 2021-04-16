@@ -104,7 +104,7 @@ async function updateUserProfileData(req, res, next) {
     
           })
 
-        UserTable.find({phone: email, _id: {$ne :id}}, function(err, response){
+        UserTable.find({phone: Number(phone), _id: {$ne :id}}, function(err, response){
     
         if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
 
