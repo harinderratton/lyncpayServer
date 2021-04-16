@@ -98,13 +98,13 @@ async function updateUserProfileData(req, res, next) {
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
 
-        UserTable.find({email: email, id: {$ne :id}}, function(err, response){
+        UserTable.find({email: email, _id: {$ne :id}}, function(err, response){
       
         if(response.length != 0) return res.json({ status: false, msg: 'This email is already in use, Please use another'});
     
           })
 
-        UserTable.find({phone: email, id: {$ne :id}}, function(err, response){
+        UserTable.find({phone: email, _id: {$ne :id}}, function(err, response){
     
         if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
 
