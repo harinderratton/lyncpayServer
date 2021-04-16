@@ -30,6 +30,7 @@ app.route('/getMyPaymethods').post(payMethods.getMyPaymethods)
 //general data controller routes start
 app.route('/getLyncpayUsers').post(dataControllerMethods.getLyncpayUsers)
 app.route('/updateUserProfileData/:phone/:email/:id').post(dataControllerMethods.updateUserProfileData)
+app.route('/updateUserAuthPassword').post(dataControllerMethods.updateUserAuthPassword)
  
 
 };

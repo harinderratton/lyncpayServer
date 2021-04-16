@@ -25,6 +25,7 @@ UserTable = mongoose.model('UserTable');
 //exported functions
 exports.getLyncpayUsers = getLyncpayUsers;
 exports.updateUserProfileData = updateUserProfileData;
+exports.updateUserAuthPassword = updateUserAuthPassword;
  
  
 //functions defination
@@ -107,6 +108,57 @@ async function updateUserProfileData(req, res, next) {
         UserTable.find({phone: Number(phone), _id: {$ne :id}}, function(err, response){
     
         if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
+
+
+        })
+ 
+  
+        filesUpload.uploadPic(req, res, function(err){
+
+     
+       var newData = {name: req.body.name, phone: phone, email: email}
+       if(req.file != undefined) newData['pic'] = req.file.filename
+
+        UserTable.updateOne({_id: id}, newData , function(err, response){
+
+            UserTable.findOne({_id: id}, function(err, userData){
+                if(err == null) return res.json({ status: true, msg: "Profile is updated", data: userData});
+                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+            });
+        })
+   
+
+    } )
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+
+
+async function updateUserAuthPassword(req, res, next) {
+
+	try {
+      
+        const {id, oldPassword, newPassword} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+        if(errors.indexOf(oldPassword)>=0) return res.json({ status: false, msg: "Please provide the oldPassword." });
+        if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
+
+       var userDetails = await UserTable.findOne({_id: id})
+
+       var isMatch = passwordHash.verify(oldPassword, userDetails.password) ?  true : false;
+
+       if(!isMatch) return res.json({ status: false, msg: 'You have provided a wrong current password.'});
+
+
+        UserTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
+    
+            if(err == null) return res.json({ status: true, msg: 'Your password is updated.'});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
 
         })
