@@ -24,6 +24,7 @@ UserTable = mongoose.model('UserTable');
 
 //exported functions
 exports.getLyncpayUsers = getLyncpayUsers;
+exports.updateUserProfileData = updateUserProfileData;
  
  
 //functions defination
@@ -87,4 +88,33 @@ async function getLyncpayUsers(req, res, next) {
 
 }
 
+
+
+ 
+async function updateUserProfileData(req, res, next) {
+
+	try {
+
+    filesUpload.uploadPic(req, res, function(err){
+
+        console.log(req.body);
+    //   const {email, name} = req.body;
+    //   if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+    //   if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+    //   UserTable.updateOne({email: email}, {name: name, personalised: 1}, function(err, response){
+
+    //     if(err == null) return res.json({ status: true, msg: "Personalising is done"});
+    //     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+    //   })
+   
+
+    } )
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
  

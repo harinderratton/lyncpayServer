@@ -4,7 +4,7 @@ module.exports = function(app) {
 var userAuth = require('../controllers/userAuthController');
 var userGroups = require('../controllers/groupController');
 var payMethods = require('../controllers/payMethodController');
-var dataControllerMethods = require('../controllers/dataController');
+var dataControllerMethods = require('../controllers/generalDataController');
 
 //user routes start
 app.route('/sendOTP').post(userAuth.sendOTP)
@@ -29,6 +29,7 @@ app.route('/getMyPaymethods').post(payMethods.getMyPaymethods)
 
 //general data controller routes start
 app.route('/getLyncpayUsers').post(dataControllerMethods.getLyncpayUsers)
+app.route('/updateUserProfileData').post(dataControllerMethods.updateUserProfileData)
  
 
 };
