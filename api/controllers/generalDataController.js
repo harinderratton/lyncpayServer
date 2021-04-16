@@ -142,7 +142,7 @@ async function updateUserProfileData(req, res, next) {
 async function updateUserAuthPassword(req, res, next) {
 
 	try {
-      
+ 
         const {id, oldPassword, newPassword} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
         if(errors.indexOf(oldPassword)>=0) return res.json({ status: false, msg: "Please provide the oldPassword." });
@@ -164,23 +164,6 @@ async function updateUserAuthPassword(req, res, next) {
         })
  
   
-        filesUpload.uploadPic(req, res, function(err){
-
-     
-       var newData = {name: req.body.name, phone: phone, email: email}
-       if(req.file != undefined) newData['pic'] = req.file.filename
-
-        UserTable.updateOne({_id: id}, newData , function(err, response){
-
-            UserTable.findOne({_id: id}, function(err, userData){
-                if(err == null) return res.json({ status: true, msg: "Profile is updated", data: userData});
-                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-            });
-        })
-   
-
-    } )
-
 	} catch (err) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
