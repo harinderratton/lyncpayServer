@@ -111,10 +111,10 @@ async function updateUserProfileData(req, res, next) {
 
         })
  
-
+  
         filesUpload.uploadPic(req, res, function(err){
 
-
+        console.log(req.file)
         UserTable.updateOne({_id: id}, {name: req.body.name, phone: phone, email: email}, function(err, response){
 
             UserTable.findOne({_id: id}, function(err, userData){
