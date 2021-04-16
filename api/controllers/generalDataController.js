@@ -117,10 +117,10 @@ async function updateUserProfileData(req, res, next) {
 
         UserTable.updateOne({_id: id}, {name: req.body.name, phone: phone, email: email}, function(err, response){
 
-            var userData = await UserTable.findOne({_id: id});
-            if(err == null) return res.json({ status: true, msg: "Profile is updated", data: userData});
-            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-
+            UserTable.findOne({_id: id}, function(err, userData){
+                if(err == null) return res.json({ status: true, msg: "Profile is updated", data: userData});
+                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+            });
         })
    
 
