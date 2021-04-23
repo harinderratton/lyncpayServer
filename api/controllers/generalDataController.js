@@ -40,7 +40,7 @@ async function getLyncpayUsers(req, res, next) {
         
         var numbers = JSON.parse(myAllNumbers);
         if(type ==1 )  var response = await UserTable.find({ phone: {$in : numbers }});
-        else           var response = await UserTable.find({ phone: {$nin : numbers }});
+        else           var response = await UserTable.find();
 
         if(response.length !=0) {
             var cont = 0;
