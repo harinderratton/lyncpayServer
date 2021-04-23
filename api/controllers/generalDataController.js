@@ -28,7 +28,8 @@ exports.getLyncpayUsers = getLyncpayUsers;
 exports.updateUserProfileData = updateUserProfileData;
 exports.updateUserAuthPassword = updateUserAuthPassword;
 exports.getNonLyncpayUsers = getNonLyncpayUsers;
- 
+exports.inviteContactOnLyncpay = inviteContactOnLyncpay;
+
  
 //functions defination
 
@@ -131,6 +132,48 @@ async function getNonLyncpayUsers(req, res, next) {
                 
 
             }
+        }
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
+}
+
+
+
+
+//functions defination
+
+async function inviteContactOnLyncpay(req, res, next) {
+
+	try {
+ 
+        const {phone, userId} = req.body;
+        if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
+        if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
+
+        var doesExist = contactInvitationTable.find({phone:phone, senderId: userId})
+
+        if(doesExist.length!=0) return res.json({ status: false, msg: "Already invited!" }); 
+        
+        var newData = new contactInvitationTable({
+            phone:phone,
+            senderId: userId
+        })
+
+        newData.save(function(err, response){
+
+            if(err != null) return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+            else return res.json({ status: true, msg: "Invited!" });
+
+        });
+
+        if(numbers.length !=0) {
+ 
         }
         else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         
