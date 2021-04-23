@@ -12,5 +12,14 @@ var groupSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-module.exports = mongoose.model('GroupTable', groupSchema);
+
+var contactInvitationSchema = new mongoose.Schema({
+    phone: {type: String, required: true},
+	senderId: {type: String, required: true},
+    status:  {type: String, default: 1},
+
+}, {timestamps: true});
+
+
+module.exports = mongoose.model('contactInvitationTable', contactInvitationSchema);
  
