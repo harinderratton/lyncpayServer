@@ -34,11 +34,13 @@ async function getLyncpayUsers(req, res, next) {
 
 	try {
  
-        const {myAllNumbers} = req.body;
+        const {myAllNumbers, type} = req.body;
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
+        if(errors.indexOf(type)>=0) return res.json({ status: false, msg: "Please provide the type." });
         
         var numbers = JSON.parse(myAllNumbers);
-        var response = await UserTable.find({ phone: {$in : numbers }});
+        if(type ==1 )  var response = await UserTable.find({ phone: {$in : numbers }});
+        else           var response = await UserTable.find({ phone: {$nin : numbers }});
 
         if(response.length !=0) {
             var cont = 0;
@@ -89,11 +91,12 @@ async function getLyncpayUsers(req, res, next) {
 
 
 
+
  
 async function updateUserProfileData(req, res, next) {
 
 	try {
-       console.log(req.params)
+        console.log(req.params)
         const {id, email, phone} = req.params;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
@@ -152,7 +155,7 @@ async function updateUserAuthPassword(req, res, next) {
 
        var isMatch = passwordHash.verify(oldPassword, userDetails.password) ?  true : false;
 
-       if(!isMatch) return res.json({ status: false, msg: 'Provided current password is wrong.'});
+       if(!isMatch) return res.json({ status: false, msg: 'Your current password is wrong.'});
 
 
         UserTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
