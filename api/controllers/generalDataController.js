@@ -27,6 +27,7 @@ contactInvitationTable = mongoose.model('contactInvitationTable');
 exports.getLyncpayUsers = getLyncpayUsers;
 exports.updateUserProfileData = updateUserProfileData;
 exports.updateUserAuthPassword = updateUserAuthPassword;
+exports.getNonLyncpayUsers = getNonLyncpayUsers;
  
  
 //functions defination
