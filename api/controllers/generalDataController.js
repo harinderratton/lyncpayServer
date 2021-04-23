@@ -29,8 +29,6 @@ exports.updateUserProfileData = updateUserProfileData;
 exports.updateUserAuthPassword = updateUserAuthPassword;
 exports.getNonLyncpayUsers = getNonLyncpayUsers;
 exports.inviteContactOnLyncpay = inviteContactOnLyncpay;
-
- 
 //functions defination
 
 async function getLyncpayUsers(req, res, next) {
@@ -156,12 +154,22 @@ async function inviteContactOnLyncpay(req, res, next) {
         if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
 
-        var doesExist = await contactInvitationTable.find({phone:phone, senderId: userId})
+        var step = phone
+        var step1 = step.replace(/ /g,'')
+        var mystring =  step1.split('-').join('')
+        var mystring1 =  mystring.split('(').join('')
+        var mystring2 =  mystring1.split(')').join('')
+        var mystring3 =  mystring2.split('#').join('')
+        var mystring4 =  mystring3.split('#').join('')
+        var strLength = mystring4.length
+        var final = mystring4.substr(strLength - 10)
+
+        var doesExist = await contactInvitationTable.find({phone: final, senderId: userId})
 
         if(doesExist.length!=0) return res.json({ status: false, msg: "Already invited!" }); 
         
         var newData = new contactInvitationTable({
-            phone:phone,
+            phone: final,
             senderId: userId
         })
 
