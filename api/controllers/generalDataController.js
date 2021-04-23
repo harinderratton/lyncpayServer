@@ -100,7 +100,7 @@ async function getNonLyncpayUsers(req, res, next) {
         
         var numbers = JSON.parse(myAllNumbers);
 
-        console.log(numers);
+        console.log(numbers);
  
 
         if(numbers.length !=0) {
