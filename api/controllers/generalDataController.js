@@ -99,6 +99,8 @@ async function getNonLyncpayUsers(req, res, next) {
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
         
         var numbers = JSON.parse(myAllNumbers);
+
+        console.log(numers);
  
 
         if(numbers.length !=0) {
