@@ -156,7 +156,7 @@ async function inviteContactOnLyncpay(req, res, next) {
         if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
 
-        var doesExist = contactInvitationTable.find({phone:phone, senderId: userId})
+        var doesExist = await contactInvitationTable.find({phone:phone, senderId: userId})
 
         if(doesExist.length!=0) return res.json({ status: false, msg: "Already invited!" }); 
         
