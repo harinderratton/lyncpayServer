@@ -22,4 +22,5 @@ var contactInvitationSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model('contactInvitationTable', contactInvitationSchema);
+module.exports = mongoose.model('GroupTable', groupSchema);
  
