@@ -110,11 +110,10 @@ async function getNonLyncpayUsers(req, res, next) {
                 var isInvited = await contactInvitationTable.count({ phone:  key, senderId: userId});
                 var isLyncpayUser = await UserTable.count({ phone:  key});
 
-                if(isLyncpayUser!=0){
+                if(isLyncpayUser==0){
                     
                     var dist = {
-                        city: key.city,
-                        country: key.country,
+                        phone: key,
                         createdAt: key.createdAt,
                         isLyncpayUser: isLyncpayUser,
                         isInvited: isInvited
