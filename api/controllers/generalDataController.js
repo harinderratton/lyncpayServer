@@ -126,7 +126,7 @@ async function getNonLyncpayUsers(req, res, next) {
 
                 cont++;
 
-                if(cont == response.length){
+                if(cont == numbers.length){
                     return res.json({ status: true, data: allContacts});
                 }
                 
