@@ -100,38 +100,30 @@ async function getNonLyncpayUsers(req, res, next) {
         if(errors.indexOf(myAllNumbers)>=0) return res.json({ status: false, msg: "Please provide the myAllNumbers." });
         
         var numbers = JSON.parse(myAllNumbers);
-        var response = await UserTable.find({ phone: {$nin : numbers }});
+ 
 
-        if(response.length !=0) {
+        if(numbers.length !=0) {
             var cont = 0;
             var allContacts = [];
-            for(let key of response){
-                var name =  key.name.split(' ');
-                var isInvited = await contactInvitationTable.count({ phone:  key.phone, senderId: userId});
-                var dist = {
-                            city: key.city,
-                            country: key.country,
-                            createdAt: key.createdAt,
-                            email: key.email,
-                            emailNotifications: key.emailNotifications,
-                            isAccountCompleted: key.isAccountCompleted,
-                            name1: name[0].split('')[0].toUpperCase(),
-                            name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
-                            name: (name[0].charAt(0).toUpperCase() + name[0].slice(1)) +' '+ (name[1] != undefined ? name[1].charAt(0).toUpperCase() + name[1].slice(1) : ''),
-                            password: key.password,
-                            personalised: key.personalised,
-                            phone: key.phone,
-                            pic: key.pic,
-                            pushNotifications: key.pushNotifications,
-                            state: key.state,
-                            uid: key.uid,
-                            updatedAt: key.updatedAt,
-                            zip: key.zip,                          
-                            _id: key._id,
-                            isInvited: isInvited
+            for(let key of numbers){
+  
+                var isInvited = await contactInvitationTable.count({ phone:  key, senderId: userId});
+                var isLyncpayUser = await UserTable.count({ phone:  key});
+
+                if(isLyncpayUser!=0){
+                    
+                    var dist = {
+                        city: key.city,
+                        country: key.country,
+                        createdAt: key.createdAt,
+                        isLyncpayUser: isLyncpayUser,
+                        isInvited: isInvited
+                    }
+
+                   allContacts.push(dist);
                 }
 
-                allContacts.push(dist);
+
                 cont++;
 
                 if(cont == response.length){
