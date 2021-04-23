@@ -172,11 +172,6 @@ async function inviteContactOnLyncpay(req, res, next) {
 
         });
 
-        if(numbers.length !=0) {
- 
-        }
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-        
 
 	} catch (err) {
     console.log('Catch Error', err);
