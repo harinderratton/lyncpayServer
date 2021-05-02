@@ -35,7 +35,7 @@ var NotificationsSchema = new mongoose.Schema({
     	type: String
     },
     toId: {
-      type: []
+		type: String
     },
     type: {
       type: String
