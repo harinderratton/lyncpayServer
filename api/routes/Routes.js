@@ -33,6 +33,7 @@ app.route('/updateUserProfileData/:phone/:email/:id').post(dataControllerMethods
 app.route('/updateUserAuthPassword').post(dataControllerMethods.updateUserAuthPassword)
 app.route('/getNonLyncpayUsers').post(dataControllerMethods.getNonLyncpayUsers)
 app.route('/inviteContactOnLyncpay').post(dataControllerMethods.inviteContactOnLyncpay)
+app.route('/getUserNotifications').post(dataControllerMethods.getUserNotifications)
  
 
 };

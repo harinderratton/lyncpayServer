@@ -14,14 +14,14 @@ NodeGeocoder = require('node-geocoder'),
 fs = require('fs'),
 sg = require('sendgrid')(constants.SENDGRID_ID),
 multer = require('multer'),
-filesUpload = require('../logic/uploadFiles');
-
+filesUpload = require('../logic/uploadFiles')
  
 
 //tables
 var GroupTable = mongoose.model('GroupTable'),
 UserTable = mongoose.model('UserTable'),
-contactInvitationTable = mongoose.model('contactInvitationTable');
+contactInvitationTable = mongoose.model('contactInvitationTable'),
+NotificationsTable = mongoose.model('NotificationsTable')
 
 //exported functions
 exports.getLyncpayUsers = getLyncpayUsers;
@@ -29,6 +29,8 @@ exports.updateUserProfileData = updateUserProfileData;
 exports.updateUserAuthPassword = updateUserAuthPassword;
 exports.getNonLyncpayUsers = getNonLyncpayUsers;
 exports.inviteContactOnLyncpay = inviteContactOnLyncpay;
+exports.getUserNotifications = getUserNotifications;
+
 //functions defination
 
 async function getLyncpayUsers(req, res, next) {
@@ -111,7 +113,7 @@ async function getNonLyncpayUsers(req, res, next) {
                 var isInvited = await contactInvitationTable.count({ phone:  key, senderId: userId});
                 var isLyncpayUser = await UserTable.count({ phone:  key});
 
-                if(isLyncpayUser==0){
+                if(isLyncpayUser == 0){
                     
                     var dist = {
                         phone: key,
@@ -271,6 +273,57 @@ async function updateUserAuthPassword(req, res, next) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
-
+   
 }
+
+
+async function getUserNotifications(req, res, next) {
+
+    try {
+ 
+        const {id} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+        
+     
+        var response = await NotificationsTable.find({ toId: id});
+
+        if(response.length !=0) {
+            var cont = 0;
+            var allContacts = [];
+            for(let key of response){
+
+
+                if(key.type == 1){
+
+                    var dist = {
+                        id: key.id,
+                        type: key.type,
+                        isRead: key.isRead,
+                        from: key.fromId,
+                        groupName: key.data_params.groupName
+                    }
+    
+                    allContacts.push(dist);
+                }
+                
+
+                cont++;
+
+                if(cont == response.length){
+                   
+                    return res.json({ status: true, data: arraySort(allContacts, 'date', {reverse: true})});
+                }
+                
+
+            }
+        }
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        
+
+    } catch (err) {
+    console.log('Catch Error', err);
+        return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+    }
+
+} 
  
