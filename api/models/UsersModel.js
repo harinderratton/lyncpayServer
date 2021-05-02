@@ -30,6 +30,32 @@ var OTPSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
+var NotificationsSchema = new mongoose.Schema({
+    fromId: {
+    	type: String
+    },
+    toId: {
+      type: []
+    },
+    type: {
+      type: String
+    },
+    isRead: {
+      type: String
+	},
+	isNewEntry: {
+		type: String,
+		default: 1
+	  },
+    data_params: {
+      type: Object
+    }
+   },{timestamps: true}
+
+);
+
+
 module.exports = mongoose.model('OTPTable', OTPSchema);
 module.exports = mongoose.model('UserTable', UserSchema);
+module.exports = mongoose.model('NotificationsTable', NotificationsSchema);
  

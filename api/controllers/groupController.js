@@ -20,7 +20,8 @@ filesUpload = require('../logic/uploadFiles');
 
 //tables
 var GroupTable = mongoose.model('GroupTable'),
-UserTable = mongoose.model('UserTable');
+UserTable = mongoose.model('UserTable'),
+NotificationsTable = mongoose.model('NotificationsTable')
 
 //exported functions
 exports.getMyContacts = getMyContacts;
@@ -98,19 +99,27 @@ async function createNewGroup(req, res, next) {
                 if(errors.indexOf(selectedIDS)>=0) return res.json({ status: false, msg: "Please provide the selectedIDS." });
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
          
-
+                var memberIDS = JSON.parse(selectedIDS)
                 var newGroup = new GroupTable({
                     admin: id,
                     name: name,
-                    members:  JSON.parse(selectedIDS)
+                    members:  memberIDS
                 })
             
                 newGroup.save(function(err, response){
+
+
+                    memberIDS.forEach(function myFunction(item, index) {
+
+                        if(item!= id) addNotifications(id, item, 1, {groupName: name})
+                       
+                      });
 
                     if(err == null) return res.json({ status: true, msg: 'Group has been created'});
                     else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
                 })
+                
    
        });
 	} catch (err) {
@@ -177,6 +186,20 @@ async function getMyGroups(req, res, next) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
 
+}
+
+
+function addNotifications(fromId, toId, type, data_params){
+
+        var data = {
+            fromId: fromId,
+            toId: toId,
+            type: type,
+            data_params: data_params
+        }
+
+        var newNotification = new NotificationsTable(data)
+        newNotification.save();
 }
 
  
