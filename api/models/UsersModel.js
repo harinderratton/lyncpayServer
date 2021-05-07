@@ -30,6 +30,9 @@ var OTPSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
+
+//type 1 is for if user is added to any group
+//type 2 is for if expense is added to any user
 var NotificationsSchema = new mongoose.Schema({
     fromId: {
     	type: String

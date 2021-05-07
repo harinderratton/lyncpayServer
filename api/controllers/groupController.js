@@ -286,7 +286,7 @@ async function confirmAddExpense(req, res, next) {
     
                         memberIDS.forEach(function myFunction(item, index) {
     
-                            addNotifications(key, item, 1, {groupName: name, expense: each})
+                            addNotifications(key, item, 2, {groupName: name, expense: each})
                            
                           });
     
