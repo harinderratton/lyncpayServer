@@ -315,7 +315,7 @@ async function getUserNotifications(req, res, next) {
                         isRead: key.isRead,
                         from: key.fromId,
                         groupName: key.data_params.groupName,
-                        expense: key.data_params.expense,
+                        expense: Number(key.data_params.expense),
                     }
     
                     allContacts.push(dist);
