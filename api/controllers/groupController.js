@@ -264,7 +264,7 @@ async function confirmAddExpense(req, res, next) {
 	try {
            filesUpload.uploadPic(req, res, function(err){
 
-                const {name, groupId, members, total, each} = req.body;
+                const {name, groupId, members, total, each, userId} = req.body;
                 if(errors.indexOf(members)>=0) return res.json({ status: false, msg: "Please provide the members." });
                 if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
