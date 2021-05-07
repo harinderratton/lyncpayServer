@@ -283,15 +283,21 @@ async function confirmAddExpense(req, res, next) {
                 
                     newExpense.save(function(err, response){
     
-    
+                        var cont = 0;
                         memberIDS.forEach(function myFunction(item, index) {
     
                             addNotifications(key, item, 2, {groupName: name, expense: each})
+
+                            cont++
+
+                            if(memberIDS.length == cont){
+                                if(err == null) return res.json({ status: true, msg: 'Expense has been added'});
+                                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+                            }
                            
                           });
     
-                        if(err == null) return res.json({ status: true, msg: 'Expense has been added'});
-                        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+ 
     
                     })
 
