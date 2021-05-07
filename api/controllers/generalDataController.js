@@ -300,7 +300,8 @@ async function getUserNotifications(req, res, next) {
                         type: key.type,
                         isRead: key.isRead,
                         from: key.fromId,
-                        groupName: key.data_params.groupName
+                        groupName: key.data_params.groupName,
+                        date: key.createdAt
                     }
     
                     allContacts.push(dist);
@@ -316,6 +317,7 @@ async function getUserNotifications(req, res, next) {
                         from: key.fromId,
                         groupName: key.data_params.groupName,
                         expense: Number(key.data_params.expense),
+                        date: key.createdAt
                     }
     
                     allContacts.push(dist);
