@@ -217,7 +217,7 @@ async function getSingleGroupDetails(req, res, next) {
             var cont = 0 ;
           
             for(let key of response1.members){
-                cont++
+               
                 var allMembers = [];
               
       
