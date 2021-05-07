@@ -305,6 +305,21 @@ async function getUserNotifications(req, res, next) {
     
                     allContacts.push(dist);
                 }
+
+
+                if(key.type == 2){
+
+                    var dist = {
+                        id: key.id,
+                        type: key.type,
+                        isRead: key.isRead,
+                        from: key.fromId,
+                        groupName: key.data_params.groupName,
+                        expense: key.data_params.expense,
+                    }
+    
+                    allContacts.push(dist);
+                }
                 
 
                 cont++;
