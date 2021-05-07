@@ -21,13 +21,15 @@ filesUpload = require('../logic/uploadFiles');
 //tables
 var GroupTable = mongoose.model('GroupTable'),
 UserTable = mongoose.model('UserTable'),
-NotificationsTable = mongoose.model('NotificationsTable')
+NotificationsTable = mongoose.model('NotificationsTable'),
+ExpenseTable = mongoose.model('ExpenseTable')
 
 //exported functions
 exports.getMyContacts = getMyContacts;
 exports.createNewGroup = createNewGroup;
 exports.getMyGroups = getMyGroups;
 exports.getSingleGroupDetails = getSingleGroupDetails;
+exports.confirmAddExpense = confirmAddExpense;
 
 
 async function getMyContacts(req, res, next) {
@@ -254,6 +256,54 @@ return res.status(401).send({ status: false, msg: "Something Went Wrong. Please 
 }
 
 
+}
+
+
+async function confirmAddExpense(req, res, next) {
+
+	try {
+           filesUpload.uploadPic(req, res, function(err){
+
+                const {name, groupId, members, total, each} = req.body;
+                if(errors.indexOf(members)>=0) return res.json({ status: false, msg: "Please provide the members." });
+                if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
+                if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+                if(errors.indexOf(total)>=0) return res.json({ status: false, msg: "Please provide the total." });
+                if(errors.indexOf(each)>=0) return res.json({ status: false, msg: "Please provide the each." });
+         
+                var memberIDS = JSON.parse(members)
+
+                for(let key of memberIDS){
+
+                    var newExpense = new ExpenseTable({
+                        groupId: groupId,
+                        userId: key,
+                        amount: each,
+                    })
+                
+                    newExpense.save(function(err, response){
+    
+    
+                        memberIDS.forEach(function myFunction(item, index) {
+    
+                            addNotifications(key, item, 1, {groupName: name, expense: each})
+                           
+                          });
+    
+                        if(err == null) return res.json({ status: true, msg: 'Expense has been added'});
+                        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+    
+                    })
+
+                }
+
+                
+   
+       });
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
 
 }
 

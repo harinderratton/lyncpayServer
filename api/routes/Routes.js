@@ -21,6 +21,7 @@ app.route('/getMyContacts').post(userGroups.getMyContacts)
 app.route('/createNewGroup').post(userGroups.createNewGroup)
 app.route('/getMyGroups').post(userGroups.getMyGroups)
 app.route('/getSingleGroupDetails').post(userGroups.getSingleGroupDetails)
+app.route('/confirmAddExpense').post(userGroups.confirmAddExpense)
 
 
 //payment methods routes start
