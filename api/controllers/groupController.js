@@ -211,9 +211,9 @@ async function getSingleGroupDetails(req, res, next) {
         const {groupId} = req.body;
         if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
 
-        var response1 = await GroupTable.find({_id: groupId});
+        var response1 = await GroupTable.findOne({_id: groupId});
 
-        if(response1.length!= 0) {
+        if(response1 != null) {
             var cont = 0 ;
           
             for(let key of response1.members){
