@@ -215,12 +215,9 @@ async function getSingleGroupDetails(req, res, next) {
 
         if(response1 != null) {
             var cont = 0 ;
-          
+            var allMembers = [];
             for(let key of response1.members){
                
-                var allMembers = [];
-              
-      
                         var userDetails = await UserTable.findOne({_id: key}, '_id name pic');
                         allMembers.push(userDetails);
                         cont++;
