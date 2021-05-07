@@ -23,7 +23,7 @@ var contactInvitationSchema = new mongoose.Schema({
 
 var expenseSchema = new mongoose.Schema({
     groupId: {type: String, required: true},
-	pic: {type: SVGAnimatedString},
+	pic: {type: String},
     description: {type: String},
     userId: {type: String, required: true},
     amount: {type: String, required: true},
