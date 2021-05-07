@@ -270,9 +270,10 @@ async function confirmAddExpense(req, res, next) {
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
                 if(errors.indexOf(total)>=0) return res.json({ status: false, msg: "Please provide the total." });
                 if(errors.indexOf(each)>=0) return res.json({ status: false, msg: "Please provide the each." });
+                if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
          
                 var memberIDS = JSON.parse(members)
-
+                var cont = 0;
                 for(let key of memberIDS){
 
                     var newExpense = new ExpenseTable({
@@ -282,22 +283,15 @@ async function confirmAddExpense(req, res, next) {
                     })
                 
                     newExpense.save(function(err, response){
-    
-                        var cont = 0;
-                        memberIDS.forEach(function myFunction(item, index) {
-    
-                            addNotifications(key, item, 2, {groupName: name, expense: each})
+                        addNotifications(userId, key, 2, {groupName: name, expense: each})
 
-                            cont++
+                        cont++
 
-                            if(memberIDS.length == cont){
-                                if(err == null) return res.json({ status: true, msg: 'Expense has been added'});
-                                else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
-                            }
-                           
-                          });
-    
- 
+                        if(cont == memberIDS.length){
+                            if(err == null) return res.json({ status: true, msg: 'Expense has been added'});
+                            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+                        }
+
     
                     })
 
