@@ -27,7 +27,8 @@ NotificationsTable = mongoose.model('NotificationsTable')
 exports.getMyContacts = getMyContacts;
 exports.createNewGroup = createNewGroup;
 exports.getMyGroups = getMyGroups;
- 
+exports.getSingleGroupDetails = getSingleGroupDetails;
+
 
 async function getMyContacts(req, res, next) {
 
@@ -200,6 +201,63 @@ function addNotifications(fromId, toId, type, data_params){
 
         var newNotification = new NotificationsTable(data)
         newNotification.save();
+}
+
+
+
+async function getSingleGroupDetails(req, res, next) {
+
+    try{
+        const {groupId} = req.body;
+        if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
+
+        var response1 = await GroupTable.find({_id: groupId});
+
+        if(response1.length!= 0) {
+            var cont = 0 ;
+          
+            for(let key of response1.members){
+                cont++
+                var allMembers = [];
+              
+      
+                        var userDetails = await UserTable.findOne({_id: key}, '_id name pic');
+                        allMembers.push(userDetails);
+                        cont++;
+
+                        if(cont == response1.members.length) {
+
+                            var name =  key.name.split(' ');
+                            var ResData = {
+                                admin: key.admin,
+                                createdAt: key.createdAt, 
+                                members: allMembers, 
+                                name: key.name,
+                                name1: name[0].split('')[0].toUpperCase(),
+                                name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
+                                paymentStatus: key.paymentStatus, 
+                                pic: key.pic,
+                                _id: key._id, 
+                            }
+                            
+                            return res.json({ status: true, msg: 'groups list', data: ResData});
+                        
+                        }
+
+                
+            }
+
+
+        }
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+} catch (err) {
+console.log('Catch Error', err);
+return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+}
+
+
+
 }
 
  

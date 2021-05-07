@@ -20,6 +20,7 @@ app.route('/setEmailNotifications').post(userAuth.setEmailNotifications)
 app.route('/getMyContacts').post(userGroups.getMyContacts)
 app.route('/createNewGroup').post(userGroups.createNewGroup)
 app.route('/getMyGroups').post(userGroups.getMyGroups)
+app.route('/getSingleGroupDetails').post(userGroups.getSingleGroupDetails)
 
 
 //payment methods routes start
