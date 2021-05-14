@@ -28,8 +28,8 @@ exports.tryLoginAdmin = tryLoginAdmin;
 exports.Admin_updateUserProfileData = Admin_updateUserProfileData;
 exports.Admin_updateAuthPassword = Admin_updateAuthPassword;
 exports.Admin_fetchAllUsers = Admin_fetchAllUsers;
+exports.Admin_getUserDetail = Admin_getUserDetail;
  
-
 //functions logic
  
 async function tryLoginAdmin(req, res, next) {
@@ -149,6 +149,24 @@ async function Admin_fetchAllUsers(req, res, next) {
        return res.json({status: true, data: userList, groupsCount: groups, userListCount: userListCount});
  
   
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+async function Admin_getUserDetail(req, res, next) {
+
+	try {
+
+        const {id} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+
+        var groups =  await GroupTable.find({members: {'$in': [id]}})
+
+        return res.json({status: true, groups: groups});
+ 
 	} catch (err) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
