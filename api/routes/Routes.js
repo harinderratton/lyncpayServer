@@ -43,6 +43,7 @@ app.route('/getUserNotifications').post(dataControllerMethods.getUserNotificatio
 //admin controller routes start
 app.route('/tryLoginAdmin').post(adminMethods.tryLoginAdmin)
 app.route('/Admin_updateUserProfileData').post(adminMethods.Admin_updateUserProfileData)
- 
+app.route('/Admin_updateAuthPassword').post(adminMethods.Admin_updateAuthPassword)
+
  
 };
