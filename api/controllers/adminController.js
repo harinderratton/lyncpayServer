@@ -26,6 +26,7 @@ AdminTable = mongoose.model('AdminTable');
 exports.tryLoginAdmin = tryLoginAdmin;
 exports.Admin_updateUserProfileData = Admin_updateUserProfileData;
 exports.Admin_updateAuthPassword = Admin_updateAuthPassword;
+exports.Admin_fetchAllUsers = Admin_fetchAllUsers;
  
 
 //functions logic
@@ -117,7 +118,7 @@ async function Admin_updateAuthPassword(req, res, next) {
 
        var isMatch = passwordHash.verify(oldPassword, userDetails.password) ?  true : false;
 
-       if(!isMatch) return res.json({ status: false, msg: 'Your current password is wrong.'});
+       if(!isMatch) return res.json({ status: false, msg: 'Your old password is wrong.'});
 
 
        AdminTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
@@ -127,6 +128,22 @@ async function Admin_updateAuthPassword(req, res, next) {
 
 
         })
+ 
+  
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function Admin_fetchAllUsers(req, res, next) {
+
+	try {
+
+       var userList = await UserTable.find()
+       return res.status(401).send({ status: false, data: userList});
  
   
 	} catch (err) {
