@@ -75,6 +75,7 @@ async function Admin_updateUserProfileData(req, res, next) {
  
      filesUpload.uploadPic(req, res,  function(err){
      
+        console.log(req.body)
         const {id, email, phone, name, state, address, country} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
