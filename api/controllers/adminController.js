@@ -19,7 +19,7 @@ filesUpload = require('../logic/uploadFiles');
 //tables
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable'),
-AdminTable = mongoose.model('AdminTable');
+AdminTable = mongoose.model('AdminTable'),
 GroupTable = mongoose.model('GroupTable'),
 
 //exported functions
