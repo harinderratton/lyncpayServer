@@ -20,6 +20,7 @@ filesUpload = require('../logic/uploadFiles');
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable'),
 AdminTable = mongoose.model('AdminTable');
+GroupTable = mongoose.model('GroupTable'),
 
 //exported functions
  
@@ -143,7 +144,8 @@ async function Admin_fetchAllUsers(req, res, next) {
 	try {
 
        var userList = await UserTable.find()
-       return res.json({status: true, data: userList});
+       var groups = await GroupTable.count()
+       return res.json({status: true, data: userList, groupsCount: groups});
  
   
 	} catch (err) {
