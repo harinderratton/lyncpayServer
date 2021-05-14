@@ -29,6 +29,7 @@ exports.Admin_updateUserProfileData = Admin_updateUserProfileData;
 exports.Admin_updateAuthPassword = Admin_updateAuthPassword;
 exports.Admin_fetchAllUsers = Admin_fetchAllUsers;
 exports.Admin_getUserDetail = Admin_getUserDetail;
+exports.Admin_fetchSingleUser = Admin_fetchSingleUser;
  
 //functions logic
  
@@ -166,6 +167,25 @@ async function Admin_getUserDetail(req, res, next) {
         var groups =  await GroupTable.find({members: {'$in': [id]}})
 
         return res.json({status: true, groups: groups});
+ 
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function Admin_fetchSingleUser(req, res, next) {
+
+	try {
+
+        const {id} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+
+        var userDetails =  await UserTable.findOne({_id: id})
+
+        return res.json({status: true, data: userDetails});
  
 	} catch (err) {
     console.log('Catch Error', err);
