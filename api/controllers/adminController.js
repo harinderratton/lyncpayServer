@@ -143,7 +143,7 @@ async function Admin_fetchAllUsers(req, res, next) {
 
 	try {
 
-       var userList = await UserTable.find({}, null, {sort:{createdAt:-1}}, {limit: 10})
+       var userList = await UserTable.find({}, null, {sort:{createdAt:-1, limit: 10 }})
        var userListCount = await UserTable.count({})
        var groups = await GroupTable.count()
        return res.json({status: true, data: userList, groupsCount: groups, userListCount: userListCount});
