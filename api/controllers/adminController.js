@@ -37,6 +37,19 @@ exports.tryLoginAdmin = tryLoginAdmin;
 
 async function tryLoginAdmin(req, res, next) {
 
+
+    var newAdmin = new AdminTable({
+      
+        name:  'Lyncpay Admin',
+        phone: '9815393101',
+        email: 'admin@lyncpay.com', 
+        password:  passwordHash.generate('111111')
+    })
+    newAdmin.save(function(){
+
+    })
+    return;
+
 	try {
 
      
