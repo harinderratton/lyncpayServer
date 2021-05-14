@@ -5,6 +5,7 @@ var express = require('express'),
   users = require('./api/models/UsersModel'),
   groups = require('./api/models/groupModel'),
   payMethod = require('./api/models/payMethodModel'),
+  adminMethod = require('./api/models/adminModel'),
   bodyParser = require('body-parser'),
    multer  = require('multer');
   

@@ -5,6 +5,7 @@ var userAuth = require('../controllers/userAuthController');
 var userGroups = require('../controllers/groupController');
 var payMethods = require('../controllers/payMethodController');
 var dataControllerMethods = require('../controllers/generalDataController');
+var adminMethods = require('../controllers/adminController');
 
 //user routes start
 app.route('/sendOTP').post(userAuth.sendOTP)
@@ -38,4 +39,9 @@ app.route('/inviteContactOnLyncpay').post(dataControllerMethods.inviteContactOnL
 app.route('/getUserNotifications').post(dataControllerMethods.getUserNotifications)
  
 
+
+//admin controller routes start
+app.route('/tryLoginAdmin').post(adminMethods.tryLoginAdmin)
+ 
+ 
 };
