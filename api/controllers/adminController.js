@@ -143,7 +143,7 @@ async function Admin_fetchAllUsers(req, res, next) {
 	try {
 
        var userList = await UserTable.find()
-       return res.status(401).send({ status: true, data: userList});
+       return res.json({status: true, data: userList});
  
   
 	} catch (err) {
