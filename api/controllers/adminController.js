@@ -147,7 +147,7 @@ async function Admin_fetchAllUsers(req, res, next) {
        const {limit} = req.body;
        if(errors.indexOf(limit)>=0) return res.json({ status: false, msg: "Please provide the limit." });
 
-       var userList = await UserTable.find({}, null, {sort:{createdAt:-1 },  limit: limit != 'any' ? limit: 1000000000000000})
+       var userList = await UserTable.find({}, null, {sort:{createdAt:-1 },  limit: limit != 'infinity' ? limit: 1000000000000000})
        var userListCount = await UserTable.count({})
        var groups = await GroupTable.count()
        return res.json({status: true, data: userList, groupsCount: groups, userListCount: userListCount});
