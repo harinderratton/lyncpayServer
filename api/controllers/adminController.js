@@ -71,15 +71,15 @@ async function tryLoginAdmin(req, res, next) {
 async function Admin_updateUserProfileData(req, res, next) {
 
 	try {
-       console.log(req.params)
-        const {id, email, phone, name, state, address, country} = req.params;
+
+ 
+     filesUpload.uploadPic(req, res,  function(err){
+     
+        const {id, email, phone, name, state, address, country} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
         if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
- 
-     filesUpload.uploadPic(req, res,  function(err){
-
        var newData = {name: req.body.name, phone: phone, email: email, address: address,  country: country, state: state}
        if(req.file != undefined) newData['pic'] = req.file.filename
 
