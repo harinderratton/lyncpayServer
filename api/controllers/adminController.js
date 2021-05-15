@@ -286,12 +286,10 @@ async function Admin_addNewUser(req, res, next) {
         filesUpload.uploadPic(req, res, function(err){
 
 
-          const {name, newPassword} = req.body;
-          if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
-          if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
+      const {name, newPassword} = req.body;
+      if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+      if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
 
-
-     
        var newData = {name: req.body.name, phone: phone, email: email, password: passwordHash.generate(newPassword)}
        if(req.file != undefined) newData['pic'] = req.file.filename
 

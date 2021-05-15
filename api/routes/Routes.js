@@ -49,7 +49,7 @@ app.route('/Admin_getUserDetail').post(adminMethods.Admin_getUserDetail)
 app.route('/Admin_fetchSingleUser').post(adminMethods.Admin_fetchSingleUser)
 app.route('/Admin_updateUserAuthPassword').post(adminMethods.Admin_updateUserAuthPassword)
 app.route('/Admin_updateUserStatus').post(adminMethods.Admin_updateUserStatus)
-app.route('/Admin_addNewUser/:phone/:email/:id').post(adminMethods.Admin_addNewUser)
+app.route('/Admin_addNewUser/:phone/:email').post(adminMethods.Admin_addNewUser)
 
  
 };
