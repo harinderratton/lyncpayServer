@@ -207,7 +207,7 @@ async function Admin_updateUserAuthPassword(req, res, next) {
  
         const {id, newPassword, confirmPassword} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
-        oldPassword
+       
         if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
 
       if(newPassword != confirmPassword) return res.json({ status: false, msg: "New password and confirm passwords do not match." });
