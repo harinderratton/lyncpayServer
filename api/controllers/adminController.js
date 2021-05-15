@@ -33,6 +33,7 @@ exports.Admin_fetchSingleUser = Admin_fetchSingleUser;
 exports.Admin_updateUserAuthPassword = Admin_updateUserAuthPassword;
 exports.Admin_updateUserStatus = Admin_updateUserStatus;
 exports.Admin_addNewUser = Admin_addNewUser;
+exports.Admin_setNewPassword = Admin_setNewPassword;
 
 //functions logic
  
@@ -300,6 +301,34 @@ async function Admin_addNewUser(req, res, next) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
 
+}
+
+
+async function Admin_setNewPassword(req, res, next) {
+
+	try {
+ 
+    const {id, newPassword, confirmPassword} = req.body;
+    if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+   
+    if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
+
+  if(newPassword != confirmPassword) return res.json({ status: false, msg: "New password and confirm passwords do not match." });
+
+
+  AdminTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
+
+        if(err == null) return res.json({ status: true, msg: 'Your password is updated.'});
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+
+    })
+
+
+} catch (err) {
+console.log('Catch Error', err);
+return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+}
 }
 
 
