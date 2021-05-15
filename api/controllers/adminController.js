@@ -269,19 +269,12 @@ async function Admin_addNewUser(req, res, next) {
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
 
-        UserTable.find({email: email}, function(err, response){
-      
-        if(response.length != 0) return res.json({ status: false, msg: 'This email is already in use, Please use another'});
-    
-          })
+       var doesEmailExist = await  UserTable.find({email: email})
+       if(doesEmailExist.length != 0)  return res.json({ status: false, msg: 'This email is already in use, Please use another'});
 
-        UserTable.find({phone: Number(phone)}, function(err, response){
-    
-        if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
+       var doesPhoneExist = await  UserTable.find({phone: Number(phone)})
+       if(doesPhoneExist.length != 0)  return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
 
-
-        })
- 
         filesUpload.uploadPic(req, res, function(err){
 
 
