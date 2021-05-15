@@ -32,6 +32,7 @@ exports.Admin_getUserDetail = Admin_getUserDetail;
 exports.Admin_fetchSingleUser = Admin_fetchSingleUser;
 exports.Admin_updateUserAuthPassword = Admin_updateUserAuthPassword;
 exports.Admin_updateUserStatus = Admin_updateUserStatus;
+exports.Admin_addNewUser = Admin_addNewUser;
 
 //functions logic
  
@@ -149,7 +150,7 @@ async function Admin_fetchAllUsers(req, res, next) {
        const {limit} = req.body;
        if(errors.indexOf(limit)>=0) return res.json({ status: false, msg: "Please provide the limit." });
 
-       var userList = await UserTable.find({status: {'$nin': [0]}}, null, {sort:{createdAt:-1 },  limit: limit != 'infinity' ? limit: 1000000000000000})
+       var userList = await UserTable.find({status: {'$nin': [0]}}, null, {sort:{createdAt: -1 },  limit: limit != 'infinity' ? limit: 1000000000000000})
        var userListCount = await UserTable.count({})
        var groups = await GroupTable.count()
        return res.json({status: true, data: userList, groupsCount: groups, userListCount: userListCount});
@@ -255,6 +256,55 @@ async function Admin_updateUserStatus(req, res, next) {
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
    
+}
+
+
+
+
+async function Admin_addNewUser(req, res, next) {
+
+	try {
+        console.log(req.params)
+        const {email, phone, name} = req.params;
+        if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
+        if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
+        if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+
+        UserTable.find({email: email}, function(err, response){
+      
+        if(response.length != 0) return res.json({ status: false, msg: 'This email is already in use, Please use another'});
+    
+          })
+
+        UserTable.find({phone: Number(phone)}, function(err, response){
+    
+        if(response.length != 0) return res.json({ status: false, msg: 'This phone is already in use, Please use another'});
+
+
+        })
+ 
+  
+        filesUpload.uploadPic(req, res, function(err){
+
+     
+       var newData = {name: req.body.name, phone: phone, email: email}
+       if(req.file != undefined) newData['pic'] = req.file.filename
+
+       var newUser = new UserTable(newData);
+
+       newUser.save(function(err, response){
+        if(err == null) return res.json({ status: true, msg: "New user is created.", data: userData});
+        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+   
+
+    } )
+
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+
 }
 
 
