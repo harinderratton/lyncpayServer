@@ -13,7 +13,7 @@ var UserSchema = new mongoose.Schema({
 	city: {type: String, default:null},
 	country: {type: String, default:null},
 	zip: {type: String, default:null},
-	status:{type: String},
+	status:{type: String, default:1},
 	stripe_id:{type: String},
 	personalised: {type: String, default:0},
     pushNotifications: {type: String, default:0}, //1 for enable, 3 for disabled
