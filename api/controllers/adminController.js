@@ -265,10 +265,11 @@ async function Admin_addNewUser(req, res, next) {
 
 	try {
         console.log(req.params)
-        const {email, phone, name} = req.params;
+        const {email, phone, name, newPassword} = req.params;
         if(errors.indexOf(email)>=0) return res.json({ status: false, msg: "Please provide the email." });
         if(errors.indexOf(phone)>=0) return res.json({ status: false, msg: "Please provide the phone." });
         if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+        if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
 
         UserTable.find({email: email}, function(err, response){
       
@@ -287,7 +288,7 @@ async function Admin_addNewUser(req, res, next) {
         filesUpload.uploadPic(req, res, function(err){
 
      
-       var newData = {name: req.body.name, phone: phone, email: email}
+       var newData = {name: req.body.name, phone: phone, email: email, password: passwordHash.generate(newPassword)}
        if(req.file != undefined) newData['pic'] = req.file.filename
 
        var newUser = new UserTable(newData);
