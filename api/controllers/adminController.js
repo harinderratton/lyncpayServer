@@ -282,23 +282,22 @@ async function Admin_addNewUser(req, res, next) {
 
         })
  
-  
         filesUpload.uploadPic(req, res, function(err){
 
 
-      const {name, newPassword} = req.body;
-      if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
-      if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
+          const {name, newPassword} = req.body;
+          if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
+          if(errors.indexOf(newPassword)>=0) return res.json({ status: false, msg: "Please provide the newPassword." });
 
-       var newData = {name: req.body.name, phone: phone, email: email, password: passwordHash.generate(newPassword)}
-       if(req.file != undefined) newData['pic'] = req.file.filename
+          var newData = {name: req.body.name, phone: phone, email: email, password: passwordHash.generate(newPassword)}
+          if(req.file != undefined) newData['pic'] = req.file.filename
 
-       var newUser = new UserTable(newData);
+          var newUser = new UserTable(newData);
 
-       newUser.save(function(err, response){
-        if(err == null) return res.json({ status: true, msg: "New user is created.", data: userData});
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
-        })
+          newUser.save(function(err, response){
+            if(err == null) return res.json({ status: true, msg: "New user is created.", data: userData});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+            })
    
 
     } )
