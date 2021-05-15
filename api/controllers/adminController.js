@@ -31,7 +31,8 @@ exports.Admin_fetchAllUsers = Admin_fetchAllUsers;
 exports.Admin_getUserDetail = Admin_getUserDetail;
 exports.Admin_fetchSingleUser = Admin_fetchSingleUser;
 exports.Admin_updateUserAuthPassword = Admin_updateUserAuthPassword;
- 
+exports.Admin_updateUserStatus = Admin_updateUserStatus;
+
 //functions logic
  
 async function tryLoginAdmin(req, res, next) {
@@ -216,6 +217,33 @@ async function Admin_updateUserAuthPassword(req, res, next) {
         UserTable.updateOne({_id: id}, {password: passwordHash.generate(newPassword)}, function(err, response){
     
             if(err == null) return res.json({ status: true, msg: 'Your password is updated.'});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+
+        })
+ 
+  
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function Admin_updateUserStatus(req, res, next) {
+
+	try {
+ 
+        const {id, status} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+       
+        if(errors.indexOf(status)>=0) return res.json({ status: false, msg: "Please provide the status." });
+
+     
+        UserTable.updateOne({_id: id}, {status: status}, function(err, response){
+    
+            if(err == null) return res.json({ status: true, msg: 'status is updated.'});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
 
