@@ -47,6 +47,7 @@ app.route('/Admin_updateAuthPassword').post(adminMethods.Admin_updateAuthPasswor
 app.route('/Admin_fetchAllUsers').post(adminMethods.Admin_fetchAllUsers)
 app.route('/Admin_getUserDetail').post(adminMethods.Admin_getUserDetail)
 app.route('/Admin_fetchSingleUser').post(adminMethods.Admin_fetchSingleUser)
+app.route('/Admin_updateUserAuthPassword').post(adminMethods.Admin_updateUserAuthPassword)
 
  
 };
