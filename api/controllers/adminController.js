@@ -295,7 +295,7 @@ async function Admin_addNewUser(req, res, next) {
           var newUser = new UserTable(newData);
 
           newUser.save(function(err, response){
-            if(err == null) return res.json({ status: true, msg: "New user is created.", data: userData});
+            if(err == null) return res.json({ status: true, msg: "New user is created."});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
             })
    
