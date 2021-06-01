@@ -8,6 +8,7 @@ var groupSchema = new mongoose.Schema({
     name:  {type: String, required: true},
     members: {type: [], default:[]},
     paymentStatus:  {type: String, default: 1},
+    status: {type: String, default: 1}
 
 }, {timestamps: true});
 
