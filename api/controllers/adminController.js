@@ -491,7 +491,7 @@ async function Admin_updateDynamicData(req, res, next) {
 
         if(errors.indexOf(desc)>=0) return res.json({ status: false, msg: "Please provide the desc." });
 
-        DynamicDataTable.updateMany({type: id}, {tile: tile, desc: desc, type: id}, {upsert :true}, function(err, response){
+        DynamicDataTable.updateMany({page: id}, {tile: tile, desc: desc, page: id}, {upsert :true}, function(err, response){
     
             if(err != null) console.log(err)
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
