@@ -493,7 +493,7 @@ async function Admin_updateDynamicData(req, res, next) {
 
         DynamicDataTable.updateMany({type: id}, {tile: tile, desc: desc, type: id}, {upsert :true}, function(err, response){
     
-            if(err == null) console.log(err)
+            if(err != null) console.log(err)
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
