@@ -36,6 +36,7 @@ exports.Admin_addNewUser = Admin_addNewUser;
 exports.Admin_setNewPassword = Admin_setNewPassword;
 exports.getAllGroups = getAllGroups;
 exports.getSingleGroupDetailsAdmin = getSingleGroupDetailsAdmin;
+exports.Admin_updateGroupStatus = Admin_updateGroupStatus;
 
 //functions logic
  
@@ -445,6 +446,33 @@ return res.status(401).send({ status: false, msg: "Something Went Wrong. Please 
 }
 
 
+}
+
+
+async function Admin_updateGroupStatus(req, res, next) {
+
+	try {
+ 
+        const {id, status} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+       
+        if(errors.indexOf(status)>=0) return res.json({ status: false, msg: "Please provide the status." });
+
+     
+        GroupTable.updateOne({_id: id}, {status: status}, function(err, response){
+    
+            if(err == null) return res.json({ status: true, msg: 'status is updated.'});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+
+        })
+ 
+  
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
 }
 
 

@@ -53,6 +53,7 @@ app.route('/Admin_addNewUser/:phone/:email').post(adminMethods.Admin_addNewUser)
 app.route('/Admin_setNewPassword').post(adminMethods.Admin_setNewPassword)
 app.route('/getAllGroups').post(adminMethods.getAllGroups)
 app.route('/getSingleGroupDetailsAdmin').post(adminMethods.getSingleGroupDetailsAdmin)
+app.route('/Admin_updateGroupStatus').post(adminMethods.Admin_updateGroupStatus)
 
 
 };
