@@ -339,7 +339,7 @@ return res.status(401).send({ status: false, msg: "Something Went Wrong. Please 
 async function getAllGroups(req, res, next) {
 
 	try{
-                var response1 = await GroupTable.find({status: 1});
+                var response1 = await GroupTable.find({status: {'$nin': [0]}});
 
                 if(response1.length!= 0) {
                     var cont = 0 ;
