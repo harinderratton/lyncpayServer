@@ -51,6 +51,8 @@ app.route('/Admin_updateUserAuthPassword').post(adminMethods.Admin_updateUserAut
 app.route('/Admin_updateUserStatus').post(adminMethods.Admin_updateUserStatus)
 app.route('/Admin_addNewUser/:phone/:email').post(adminMethods.Admin_addNewUser)
 app.route('/Admin_setNewPassword').post(adminMethods.Admin_setNewPassword)
+app.route('/getAllGroups').post(adminMethods.getAllGroups)
+
 
  
 };
