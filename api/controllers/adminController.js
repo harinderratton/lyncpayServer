@@ -402,7 +402,7 @@ async function getSingleGroupDetailsAdmin(req, res, next) {
       if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
 
       var response1 = await GroupTable.findOne({_id: groupId});
-      var admin = await GroupTable.findOne({_id: response1.admin});
+      var admin = await UserTable.findOne({_id: response1.admin});
 
       if(response1 != null) {
           var cont = 0 ;
