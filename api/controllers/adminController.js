@@ -35,6 +35,7 @@ exports.Admin_updateUserStatus = Admin_updateUserStatus;
 exports.Admin_addNewUser = Admin_addNewUser;
 exports.Admin_setNewPassword = Admin_setNewPassword;
 exports.getAllGroups = getAllGroups;
+exports.getSingleGroupDetailsAdmin = getSingleGroupDetailsAdmin;
 
 //functions logic
  
@@ -389,6 +390,60 @@ async function getAllGroups(req, res, next) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
+
+}
+
+
+
+async function getSingleGroupDetailsAdmin(req, res, next) {
+
+  try{
+      const {groupId} = req.body;
+      if(errors.indexOf(groupId)>=0) return res.json({ status: false, msg: "Please provide the groupId." });
+
+      var response1 = await GroupTable.findOne({_id: groupId});
+      var admin = await GroupTable.findOne({_id: response1.admin});
+
+      if(response1 != null) {
+          var cont = 0 ;
+          var allMembers = [];
+          for(let key of response1.members){
+             
+                      var userDetails = await UserTable.findOne({_id: key}, '_id name pic');
+                      allMembers.push(userDetails);
+                      cont++;
+
+                      if(cont == response1.members.length) {
+
+                          var name =  response1.name.split(' ');
+                          var ResData = {
+                              admin: admin,
+                              createdAt: response1.createdAt, 
+                              members: allMembers, 
+                              name: response1.name,
+                              name1: name[0].split('')[0].toUpperCase(),
+                              name2:  name[1] != undefined ? name[1].split('')[0].toUpperCase() : null,
+                              paymentStatus: response1.paymentStatus, 
+                              pic: response1.pic,
+                              _id: response1._id, 
+                          }
+                          
+                          return res.json({ status: true, msg: 'groups list', data: ResData});
+                      
+                      }
+
+              
+          }
+
+
+      }
+      else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+
+} catch (err) {
+console.log('Catch Error', err);
+return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+}
+
 
 }
 
