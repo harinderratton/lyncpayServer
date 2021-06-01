@@ -533,12 +533,10 @@ async function getDynamicDataById(req, res, next) {
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
 
         DynamicDataTable.findOne({page: id}, function(err, response){
-    
             if(response != null) return res.json({ status: true, msg: 'status is updated.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
-  
 	} catch (err) {
     console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
