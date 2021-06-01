@@ -20,7 +20,8 @@ filesUpload = require('../logic/uploadFiles');
 var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable'),
 AdminTable = mongoose.model('AdminTable'),
-GroupTable = mongoose.model('GroupTable');
+GroupTable = mongoose.model('GroupTable'),
+DynamicDataTable = mongoose.model('DynamicDataTable');
 
 //exported functions
  
@@ -37,6 +38,7 @@ exports.Admin_setNewPassword = Admin_setNewPassword;
 exports.getAllGroups = getAllGroups;
 exports.getSingleGroupDetailsAdmin = getSingleGroupDetailsAdmin;
 exports.Admin_updateGroupStatus = Admin_updateGroupStatus;
+exports.Admin_updateDynamicData = Admin_updateDynamicData;
 
 //functions logic
  
@@ -465,6 +467,33 @@ async function Admin_updateGroupStatus(req, res, next) {
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
 
 
+        })
+ 
+  
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function Admin_updateDynamicData(req, res, next) {
+
+	try {
+ 
+        const {id, tile, desc} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+       
+        if(errors.indexOf(tile)>=0) return res.json({ status: false, msg: "Please provide the tile." });
+
+        if(errors.indexOf(desc)>=0) return res.json({ status: false, msg: "Please provide the desc." });
+
+     
+        DynamicDataTable.updateOne({_id: id}, {tile: tile, desc: desc}, function(err, response){
+    
+            if(err == null) return res.json({ status: true, msg: 'status is updated.'});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
   

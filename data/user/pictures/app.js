@@ -3,6 +3,7 @@ var express = require('express'),
   port = process.env.PORT || 3002,
   mongoose = require('mongoose'),
   users = require('./api/models/UsersModel'),
+  dynamicData = require('./api/models/dynamicData'),
   bodyParser = require('body-parser'),
    multer  = require('multer');
   
