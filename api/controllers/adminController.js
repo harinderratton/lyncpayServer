@@ -493,8 +493,8 @@ async function Admin_updateDynamicData(req, res, next) {
 
         DynamicDataTable.updateMany({page: id}, {tile: tile, desc: desc, page: id}, {upsert :true}, function(err, response){
     
-            if(err != null) console.log(err)
-            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+            if(err != null)   return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+            else return res.json({ status: true, msg: 'Data is updated.'}); 
         })
  
   
@@ -532,7 +532,7 @@ async function getDynamicDataById(req, res, next) {
         const {id} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
 
-        DynamicDataTable.findOne({type: id}, function(err, response){
+        DynamicDataTable.findOne({page: id}, function(err, response){
     
             if(response != null) return res.json({ status: true, msg: 'status is updated.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
