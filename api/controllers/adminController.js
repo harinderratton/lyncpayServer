@@ -513,9 +513,9 @@ async function getDynamicData(req, res, next) {
         const {id} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
 
-        DynamicDataTable.findOne(function(err, response){
+        DynamicDataTable.find(function(err, response){
     
-            if(err == null) return res.json({ status: true, msg: 'status is updated.', data: response});
+            if(response.length!= 0) return res.json({ status: true, msg: 'status is updated.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
