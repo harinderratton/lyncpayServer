@@ -55,6 +55,6 @@ app.route('/getAllGroups').post(adminMethods.getAllGroups)
 app.route('/getSingleGroupDetailsAdmin').post(adminMethods.getSingleGroupDetailsAdmin)
 app.route('/Admin_updateGroupStatus').post(adminMethods.Admin_updateGroupStatus)
 app.route('/Admin_updateDynamicData').post(adminMethods.Admin_updateDynamicData)
-
+app.route('/getDynamicData').post(adminMethods.getDynamicData)
 
 };

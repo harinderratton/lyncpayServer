@@ -39,6 +39,7 @@ exports.getAllGroups = getAllGroups;
 exports.getSingleGroupDetailsAdmin = getSingleGroupDetailsAdmin;
 exports.Admin_updateGroupStatus = Admin_updateGroupStatus;
 exports.Admin_updateDynamicData = Admin_updateDynamicData;
+exports.getDynamicData = getDynamicData;
 
 //functions logic
  
@@ -493,6 +494,28 @@ async function Admin_updateDynamicData(req, res, next) {
         DynamicDataTable.updateOne({_id: id}, {tile: tile, desc: desc}, function(err, response){
     
             if(err == null) return res.json({ status: true, msg: 'status is updated.'});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+ 
+  
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function getDynamicData(req, res, next) {
+
+	try {
+ 
+        const {id} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
+
+        DynamicDataTable.findOne(function(err, response){
+    
+            if(err == null) return res.json({ status: true, msg: 'status is updated.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
