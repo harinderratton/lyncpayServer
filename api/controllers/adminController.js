@@ -602,7 +602,7 @@ async function getUserFriends(req, res, next) {
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the user id." });
         
         FriendsTable.find({userId: id}, { status: 1}, function(err, response){
-            if(response.length != null) return res.json({ status: true, msg: 'Group is removed.', data: response});
+            if(response.length != null) return res.json({ status: true, data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
