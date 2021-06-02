@@ -181,7 +181,7 @@ async function Admin_getUserDetail(req, res, next) {
         const {id} = req.body;
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the id." });
 
-        var groups =  await GroupTable.find({members: {'$in': [id]}})
+        var groups =  await GroupTable.find({members: {'$in': [id]}, status: 1})
 
         return res.json({status: true, groups: groups});
  
