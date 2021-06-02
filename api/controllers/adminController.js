@@ -414,7 +414,7 @@ async function getSingleGroupDetailsAdmin(req, res, next) {
           var allMembers = [];
           for(let key of response1.members){
              
-                      var userDetails = await UserTable.findOne({_id: key}, '_id name pic');
+                      var userDetails = await UserTable.findOne({_id: key});
                       allMembers.push(userDetails);
                       cont++;
 
