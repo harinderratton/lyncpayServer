@@ -602,7 +602,27 @@ async function getUserFriends(req, res, next) {
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the user id." });
         
         FriendsTable.find({userId: id}, { status: 1}, function(err, response){
-            if(response.length != null) return res.json({ status: true, data: response});
+            if(response.length != 0) {
+
+
+                var cont = 0 ;
+                var allMembers = [];
+                for(let key of response.members){
+                   
+                            var userDetails = await UserTable.findOne({_id: key});
+                            allMembers.push(userDetails);
+                            cont++;
+      
+                            if(cont == response.members.length) {
+      
+                                return res.json({ status: true, msg: 'groups list', data: allMembers});
+                            
+                            }
+ 
+                }
+                
+
+            }
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
