@@ -607,9 +607,9 @@ async function getUserFriends(req, res, next) {
 
                 var cont = 0 ;
                 var allMembers = [];
-                for(let key of response.members){
+                for(let key of response){
                    
-                            var userDetails = await UserTable.findOne({_id: key});
+                            var userDetails = await UserTable.findOne({_id: key.friendId});
                             allMembers.push(userDetails);
                             cont++;
       
