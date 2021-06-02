@@ -57,5 +57,6 @@ app.route('/Admin_updateGroupStatus').post(adminMethods.Admin_updateGroupStatus)
 app.route('/Admin_updateDynamicData').post(adminMethods.Admin_updateDynamicData)
 app.route('/getDynamicData').post(adminMethods.getDynamicData)
 app.route('/getDynamicDataById').post(adminMethods.getDynamicDataById)
+app.route('/removeFromGroup').post(adminMethods.removeFromGroup)
 
 };

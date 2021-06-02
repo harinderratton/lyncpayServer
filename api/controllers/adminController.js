@@ -41,6 +41,8 @@ exports.Admin_updateGroupStatus = Admin_updateGroupStatus;
 exports.Admin_updateDynamicData = Admin_updateDynamicData;
 exports.getDynamicData = getDynamicData;
 exports.getDynamicDataById = getDynamicDataById;
+exports.removeFromGroup = removeFromGroup;
+
 
 //functions logic
  
@@ -534,6 +536,29 @@ async function getDynamicDataById(req, res, next) {
 
         DynamicDataTable.findOne({page: id}, function(err, response){
             if(response != null) return res.json({ status: true, msg: 'status is updated.', data: response});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+ 
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function removeFromGroup(req, res, next) {
+
+	try {
+
+        const {id, members} = req.body;
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the group id." });
+        if(errors.indexOf(members)>=0) return res.json({ status: false, msg: "Please provide the member ids." });
+
+        var memberIDS = JSON.parse(members)
+
+        GroupTable.updateOne({_id: id}, { $pull: { members: { $in:  memberIDS} }}, function(err, response){
+            if(err != null) return res.json({ status: true, msg: 'status is updated.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  

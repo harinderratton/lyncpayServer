@@ -103,16 +103,24 @@ async function createNewGroup(req, res, next) {
                 if(errors.indexOf(name)>=0) return res.json({ status: false, msg: "Please provide the name." });
          
                 var memberIDS = JSON.parse(selectedIDS)
+                var allIDS = []
+
+                for(let key of memberIDS ){
+
+                    if(allIDS.indexOf(key) == -1) allIDS.push(key) 
+
+                }
+
                 var newGroup = new GroupTable({
                     admin: id,
                     name: name,
-                    members:  memberIDS
+                    members:  allIDS
                 })
             
                 newGroup.save(function(err, response){
 
 
-                    memberIDS.forEach(function myFunction(item, index) {
+                    allIDS.forEach(function myFunction(item, index) {
 
                         if(item!= id) addNotifications(id, item, 1, {groupName: name})
                        
