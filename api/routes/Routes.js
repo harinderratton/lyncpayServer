@@ -59,5 +59,6 @@ app.route('/getDynamicData').post(adminMethods.getDynamicData)
 app.route('/getDynamicDataById').post(adminMethods.getDynamicDataById)
 app.route('/removeFromGroup').post(adminMethods.removeFromGroup)
 app.route('/removeGroup').post(adminMethods.removeGroup)
+app.route('/getUserFriends').post(adminMethods.getUserFriends)
 
 };

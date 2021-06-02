@@ -21,7 +21,8 @@ var OTPTable = mongoose.model('OTPTable'),
 UserTable = mongoose.model('UserTable'),
 AdminTable = mongoose.model('AdminTable'),
 GroupTable = mongoose.model('GroupTable'),
-DynamicDataTable = mongoose.model('DynamicDataTable');
+DynamicDataTable = mongoose.model('DynamicDataTable'),
+FriendsTable = mongoose.model('FriendsTable');
 
 //exported functions
  
@@ -42,7 +43,8 @@ exports.Admin_updateDynamicData = Admin_updateDynamicData;
 exports.getDynamicData = getDynamicData;
 exports.getDynamicDataById = getDynamicDataById;
 exports.removeFromGroup = removeFromGroup;
-exports.removeGroup = removeGroup;
+exports.removeGroup = removeGroup,
+exports.getUserFriends = getUserFriends;
 
 
 //functions logic
@@ -586,6 +588,26 @@ async function removeGroup(req, res, next) {
  
 	} catch (err) {
     console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+async function getUserFriends(req, res, next) {
+
+	try {
+
+        const {id} = req.body;
+
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the user id." });
+        
+        FriendsTable.find({userId: id}, { status: 1}, function(err, response){
+            if(response.length != null) return res.json({ status: true, msg: 'Group is removed.', data: response});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+ 
+	} catch (err) {
+        console.log('Catch Error', err);
 		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
 	}
    

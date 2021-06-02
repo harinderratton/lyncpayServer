@@ -7,6 +7,7 @@ var express = require('express'),
   payMethod = require('./api/models/payMethodModel'),
   adminMethod = require('./api/models/adminModel'),
   dynamicData = require('./api/models/dynamicDataModel'),
+  friends = require('./api/models/friendsModel'),
   bodyParser = require('body-parser'),
    multer  = require('multer');
   
