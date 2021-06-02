@@ -601,7 +601,7 @@ async function getUserFriends(req, res, next) {
 
         if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the user id." });
         
-        FriendsTable.find({userId: id}, { status: 1}, function(err, response){
+        FriendsTable.find({userId: id}, { status: 1}, async function(err, response){
             if(response.length != 0) {
 
 
