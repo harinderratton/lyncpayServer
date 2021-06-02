@@ -608,8 +608,11 @@ async function getUserFriends(req, res, next) {
                 var cont = 0 ;
                 var allMembers = [];
                 for(let key of response){
-                   
+
+                            console.log(key.friendId)
                             var userDetails = await UserTable.findOne({_id: key.friendId});
+
+                            console.log(userDetails)
                             allMembers.push(userDetails);
                             cont++;
       
