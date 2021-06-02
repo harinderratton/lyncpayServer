@@ -613,7 +613,7 @@ async function getUserFriends(req, res, next) {
                             allMembers.push(userDetails);
                             cont++;
       
-                            if(cont == response.members.length) {
+                            if(cont == response.length) {
       
                                 return res.json({ status: true, msg: 'groups list', data: allMembers});
                             
