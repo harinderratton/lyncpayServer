@@ -42,6 +42,7 @@ exports.Admin_updateDynamicData = Admin_updateDynamicData;
 exports.getDynamicData = getDynamicData;
 exports.getDynamicDataById = getDynamicDataById;
 exports.removeFromGroup = removeFromGroup;
+exports.removeGroup = removeGroup;
 
 
 //functions logic
@@ -558,7 +559,28 @@ async function removeFromGroup(req, res, next) {
         var memberIDS = JSON.parse(members)
 
         GroupTable.updateOne({_id: id}, { $pull: { members: { $in:  memberIDS} }}, function(err, response){
-            if(err != null) return res.json({ status: true, msg: 'status is updated.', data: response});
+            if(err == null) return res.json({ status: true, msg: 'Member is removed.', data: response});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+ 
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
+
+
+async function removeGroup(req, res, next) {
+
+	try {
+
+        const {id} = req.body;
+
+        if(errors.indexOf(id)>=0) return res.json({ status: false, msg: "Please provide the group id." });
+        
+        GroupTable.updateOne({_id: id}, { status: 0}, function(err, response){
+            if(err == null) return res.json({ status: true, msg: 'Group is removed.', data: response});
             else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
         })
  
