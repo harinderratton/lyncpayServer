@@ -334,7 +334,7 @@ async function getUserNotifications(req, res, next) {
 
             }
         }
-        else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        else return res.json({ status: false, msg: "No activity!" }); 
         
 
     } catch (err) {
