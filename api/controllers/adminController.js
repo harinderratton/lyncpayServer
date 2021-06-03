@@ -45,7 +45,7 @@ exports.getDynamicDataById = getDynamicDataById;
 exports.removeFromGroup = removeFromGroup;
 exports.removeGroup = removeGroup,
 exports.getUserFriends = getUserFriends;
-
+exports.removeFriend = removeFriend;
 
 //functions logic
  
@@ -637,5 +637,26 @@ async function getUserFriends(req, res, next) {
 }
 
 
+
+async function removeFriend(req, res, next) {
+
+	try {
+
+        const {userId, friendId} = req.body;
+
+        if(errors.indexOf(friendId)>=0) return res.json({ status: false, msg: "Please provide the friendId." });
+        if(errors.indexOf(userId)>=0) return res.json({ status: false, msg: "Please provide the userId." });
+        
+        FriendsTable.deleteOne({userId: userId, friendId: friendId}, function(err, response){
+            if(err == null) return res.json({ status: true, msg: 'Friend is removed.', data: response});
+            else return res.json({ status: false, msg: "Something Went Wrong. Please Try Again!" }); 
+        })
+ 
+	} catch (err) {
+    console.log('Catch Error', err);
+		return res.status(401).send({ status: false, msg: "Something Went Wrong. Please Try Again!" });
+	}
+   
+}
 
  
