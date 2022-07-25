@@ -4,5 +4,5 @@ module.exports = Object.freeze({
     APP_NAME: 'Noctuq',
     APP_EMAIL: 'info@noctuq.com',
     FCM_SERVER_KEY: 'AAAAjaPWrK8:APA91bHqsr6Iy1h2p8pyS4-68se7-CUwGfDEY8vM1t_b9Ko_zHAPqaToBOg4nIK6wYoB9x40me-nCLRvfwOpUUR1jL14NG0a4IYzG1mPNw5wKAOXGRfi8QpptbLJv8tAMlCuMM826vGo',
-    STRIPE_KEY: 'sk_test_51IeFiYDGA7q5MWYzb4k4tKKjJlPNPeUyhPEpXQgOtk4BHu0ixslMccORVzYJ2vzEDzFO43DplD4ZhFJsBXLjRooW00Af3MVW31'
+    STRIPE_KEY: 'sk_test_51Iv4d0LiAsw6ZFjKynfR0NVRjkkkkimUIgRPHIP4umBG3sKlGCPCz8D3tQTjKiQO8nn773OuUUZPqxQoRaMEEqNo00TErAibyL'
 });

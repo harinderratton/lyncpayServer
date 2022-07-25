@@ -19,6 +19,6 @@
     "otp-generator": "^2.0.0",
     "password-hash": "^1.2.2",
     "sendgrid": "^5.2.3",
-    "stripe": "^8.140.0"
+    "stripe": "^8.222.0"
   }
 }
