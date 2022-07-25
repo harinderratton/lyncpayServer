@@ -57,6 +57,19 @@ async function addNewCreditCard(req, res, next) {
     if (errors.indexOf(token) >= 0)
       return res.json({ status: false, msg: "Please provide the token." });
 
+    //check card already exists
+
+    const allCards = await CreditCardTable.find({
+      cardNumber: cardNumber.split(" ")[3],
+      userId: userId,
+    });
+
+    if (allCards.length !== 0)
+      return res.json({
+        status: false,
+        msg: "Card with same number already added.",
+      });
+
     // Create a Customer:
     const customer = await stripe.customers.create({
       source: token,
