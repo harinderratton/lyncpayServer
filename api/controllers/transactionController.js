@@ -31,7 +31,7 @@ async function payToFriend(req, res, next) {
     const { id } = req.body;
     if (errors.indexOf(id) >= 0)
       return res.json({ status: false, msg: "Please provide the id." });
-    let upload = filesUpload.UPLOAD(req, res, "data/user/pictures");
+    let upload = await filesUpload.UPLOAD(req, res, "data/user/pictures");
     console.log(upload);
   } catch (err) {
     console.log("Catch Error", err);
