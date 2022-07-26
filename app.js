@@ -8,6 +8,8 @@ var express = require("express"),
   adminMethod = require("./api/models/adminModel"),
   dynamicData = require("./api/models/dynamicDataModel"),
   friends = require("./api/models/friendsModel"),
+  CreditCard = require("./api/models/CreditCard"),
+  transaction = require("./api/models/transaction"),
   bodyParser = require("body-parser"),
   multer = require("multer");
 

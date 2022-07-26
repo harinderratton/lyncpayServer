@@ -21,7 +21,7 @@ var GroupTable = mongoose.model("Group"),
   UserTable = mongoose.model("User"),
   NotificationsTable = mongoose.model("Notification"),
   ExpenseTable = mongoose.model("Expense"),
-  TransactionTable = mongoose.model("creditCardSchema");
+  TransactionTable = mongoose.model("transaction");
 
 //exported functions
 exports.payToFriend = payToFriend;
