@@ -10,9 +10,8 @@ var express = require("express"),
 // friends = require("./api/models/friendsModel"),
 // CreditCard = require("./api/models/payMethodModel"),
 // transaction = require("./api/models/transactionModel"),
-// bodyParser = require("body-parser"),
 // multer = require("multer");
-
+bodyParser = require("body-parser");
 //mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/"); // live
 mongoose.connect("mongodb://localhost/lyncpay", { useMongoClient: true }); // local
