@@ -4,7 +4,7 @@ const fs = require("fs");
 const UPLOAD = (req, res, DIR) => {
   let PROMISE = new Promise((RESOLVE, REJECT) => {
     let dir = DIR;
-
+    console.log("dirdirdir", dir);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -21,7 +21,10 @@ const UPLOAD = (req, res, DIR) => {
     });
 
     let upload = multer({ storage: storage }).single("file");
-    RESOLVE(upload);
+
+    upload(req, res, (err) => {
+      RESOLVE({ req: req, res: res, err: err });
+    });
   });
 
   return PROMISE;
