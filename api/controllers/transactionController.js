@@ -1,9 +1,9 @@
 "use strict";
-var constants = require("../constants/constants"),
+let constants = require("../constants/constants"),
   errors = ["", null, undefined];
 
 //modules
-var mongoose = require("mongoose"),
+let mongoose = require("mongoose"),
   path = require("path"),
   passwordHash = require("password-hash"),
   otpGenerator = require("otp-generator"),
@@ -17,7 +17,7 @@ var mongoose = require("mongoose"),
   filesUpload = require("./../logic/uploadFiles");
 
 //tables
-var GroupTable = mongoose.model("Group"),
+let GroupTable = mongoose.model("Group"),
   UserTable = mongoose.model("User"),
   NotificationsTable = mongoose.model("Notification"),
   ExpenseTable = mongoose.model("Expense"),
@@ -43,9 +43,12 @@ async function payToFriend(req, res, next) {
       amount: req.body.amount,
       paymentMethod: req.body.paymentMethod,
       description: req.body.description,
-      picture: req.file.filename,
       status: "Paid",
     };
+
+    if (errors.indexOf(upload.req.file) === -1) {
+      data.picture = upload.req.file.filename;
+    }
 
     let newTransaction = new TransactionTable(data);
     let result = newTransaction.save();
