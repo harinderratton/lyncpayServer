@@ -23,8 +23,8 @@ const UPLOAD = (req, res, DIR) => {
     let upload = multer({ storage: storage }).single("file");
 
     upload(req, res, (err) => {
-      console.log("upload", req);
-      RESOLVE({ req: req, res: res, err: err });
+      console.log(req.file);
+      // RESOLVE(req);
     });
   });
 
