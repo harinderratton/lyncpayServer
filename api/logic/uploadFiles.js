@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const uploadUserPic = (req, DIR) => {
   let dir = DIR;
+  console.log("dirdirdir", dir);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
