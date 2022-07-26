@@ -21,11 +21,7 @@ const UPLOAD = (req, res, DIR) => {
     });
 
     let upload = multer({ storage: storage }).single("file");
-
-    upload(req, res, (err) => {
-      console.log(req.file);
-      // RESOLVE(req);
-    });
+    RESOLVE(upload);
   });
 
   return PROMISE;
