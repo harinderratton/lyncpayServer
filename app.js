@@ -1,17 +1,17 @@
 var express = require("express"),
   app = express(),
   port = 3001,
-  mongoose = require("mongoose"),
-  users = require("./api/models/UsersModel"),
-  groups = require("./api/models/groupModel"),
-  payMethod = require("./api/models/payMethodModel"),
-  adminMethod = require("./api/models/adminModel"),
-  dynamicData = require("./api/models/dynamicDataModel"),
-  friends = require("./api/models/friendsModel"),
-  CreditCard = require("./api/models/payMethodModel"),
-  transaction = require("./api/models/transactionModel"),
-  bodyParser = require("body-parser"),
-  multer = require("multer");
+  mongoose = require("mongoose");
+// users = require("./api/models/UsersModel"),
+// groups = require("./api/models/groupModel"),
+// payMethod = require("./api/models/payMethodModel"),
+// adminMethod = require("./api/models/adminModel"),
+// dynamicData = require("./api/models/dynamicDataModel"),
+// friends = require("./api/models/friendsModel"),
+// CreditCard = require("./api/models/payMethodModel"),
+// transaction = require("./api/models/transactionModel"),
+// bodyParser = require("body-parser"),
+// multer = require("multer");
 
 //mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/"); // live
