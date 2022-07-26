@@ -12,6 +12,7 @@ const uploadUserPic = (DIR) => {
       callback(null, dir);
     },
     filename: function (req, file, callback) {
+      console.log("file.originalname", file.originalname);
       let fileExtn = file.originalname.split(".").pop(-1);
       callback(null, new Date().getTime() + "." + fileExtn);
     },
