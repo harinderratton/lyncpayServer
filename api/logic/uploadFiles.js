@@ -1,7 +1,7 @@
 const multer = require("multer");
 const fs = require("fs");
 
-const uploadUserPic = (DIR) => {
+const uploadUserPic = (req, DIR) => {
   let dir = DIR;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -20,8 +20,8 @@ const uploadUserPic = (DIR) => {
 
   let upload = multer({ storage: storage }).single("file");
 
-  upload(req, body, (err) => {
-    return req || err;
+  upload(req, res, (err) => {
+    return { req: req, res: res, err: err };
   });
 };
 
