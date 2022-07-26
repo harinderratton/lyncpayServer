@@ -28,9 +28,9 @@ exports.payToFriend = payToFriend;
 
 async function payToFriend(req, res, next) {
   try {
-    const { id } = req.body;
-    if (errors.indexOf(id) >= 0)
-      return res.json({ status: false, msg: "Please provide the id." });
+    // const { id } = req.body;
+    // if (errors.indexOf(id) >= 0)
+    //   return res.json({ status: false, msg: "Please provide the id." });
 
     let dir = "data/user/pictures";
 
