@@ -10,6 +10,7 @@ var express = require("express"),
   friends = require("./api/models/friendsModel"),
   CreditCard = require("./api/models/payMethodModel"),
   transaction = require("./api/models/transactionModel"),
+  transaction = require("./api/models/Model"),
   bodyParser = require("body-parser"),
   multer = require("multer");
 
