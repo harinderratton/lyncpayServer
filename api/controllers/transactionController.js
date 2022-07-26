@@ -31,8 +31,25 @@ async function payToFriend(req, res, next) {
     // const { id } = req.body;
     // if (errors.indexOf(id) >= 0)
     //   return res.json({ status: false, msg: "Please provide the id." });
-    let upload = await filesUpload.UPLOAD(req, res, "data/user/pictures");
-    console.log(upload);
+    let upload = await filesUpload.UPLOAD(
+      req,
+      res,
+      "data/transactions/pictures"
+    );
+
+    let data = {
+      senderId: req.body.senderId,
+      recieverId: req.body.recieverId,
+      amount: req.body.amount,
+      paymentMethod: req.body.paymentMethod,
+      description: req.body.description,
+      picture: req.file.filename,
+      status: "Paid",
+    };
+
+    let newTransaction = new TransactionTable(data);
+    let result = newTransaction.save();
+    res.send({ status: true, result: result });
   } catch (err) {
     console.log("Catch Error", err);
     return res
