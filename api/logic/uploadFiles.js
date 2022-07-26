@@ -1,11 +1,13 @@
 const multer = require("multer");
 const fs = require("fs");
+
 const uploadUserPic = (DIR) => {
   let dir = DIR;
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  multer.diskStorage({
+
+  return multer.diskStorage({
     destination: function (req, file, callback) {
       callback(null, dir);
     },
