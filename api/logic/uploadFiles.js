@@ -1,7 +1,7 @@
 const multer = require("multer");
 const fs = require("fs");
 
-const UPLOAD = (req, DIR) => {
+const UPLOAD = (req, res, DIR) => {
   let dir = DIR;
   console.log("dirdirdir", dir);
   if (!fs.existsSync(dir)) {
