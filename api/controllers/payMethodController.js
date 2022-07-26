@@ -90,6 +90,7 @@ async function addNewCreditCard(req, res, next) {
         userId: userId,
         customerId: customer.id,
         default_source: customer.default_source,
+        cardExpiryDate: cardExpiryDate,
       });
 
       newData.save(function (err, response) {

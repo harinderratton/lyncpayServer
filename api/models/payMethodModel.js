@@ -8,6 +8,7 @@ var creditCardSchema = new mongoose.Schema(
     default_source: { type: String, required: true },
     cardHolderName: { type: String, required: true, lowercase: true },
     cardNumber: { type: String, required: true, trim: true },
+    cardExpiryDate: { type: String, required: true },
     customerId: { type: String, required: true },
     status: { type: String, default: 1 },
   },
