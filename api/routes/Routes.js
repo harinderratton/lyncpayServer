@@ -1,4 +1,5 @@
-'use strict';
+"use strict";
+// prettier-ignore
 module.exports = function(app) {
 
 var userAuth = require('../controllers/userAuthController');
@@ -6,6 +7,7 @@ var userGroups = require('../controllers/groupController');
 var payMethods = require('../controllers/payMethodController');
 var dataControllerMethods = require('../controllers/generalDataController');
 var adminMethods = require('../controllers/adminController');
+var transactionMethods = require('../controllers/transactionController');
 
 //user routes start
 app.route('/sendOTP').post(userAuth.sendOTP)
@@ -39,6 +41,8 @@ app.route('/inviteContactOnLyncpay').post(dataControllerMethods.inviteContactOnL
 app.route('/getUserNotifications').post(dataControllerMethods.getUserNotifications)
  
 
+//admin controller routes start
+app.route('/payToFriend').post(transactionMethods.payToFriend)
 
 //admin controller routes start
 app.route('/tryLoginAdmin').post(adminMethods.tryLoginAdmin)
@@ -60,6 +64,5 @@ app.route('/getDynamicDataById').post(adminMethods.getDynamicDataById)
 app.route('/removeFromGroup').post(adminMethods.removeFromGroup)
 app.route('/removeGroup').post(adminMethods.removeGroup)
 app.route('/getUserFriends').post(adminMethods.getUserFriends)
-app.route('/removeFriend').post(adminMethods.removeFriend)
-
+app.route('/removeFriend').post(adminMethods.removeFriend);
 };
