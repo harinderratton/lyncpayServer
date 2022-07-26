@@ -1,18 +1,17 @@
-'use strict';
+"use strict";
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var creditCardSchema = new mongoose.Schema({
-    userId: {type: String, required: true},
-    default_source: {type: String, required: true},
-    cardHolderName: {type: String, required: true, lowercase: true},
-	cardNumber: {type: String, required: true, trim: true},
-    customerId: {type: String, required: true},
-    status: {type: String, default: 1},
+var creditCardSchema = new mongoose.Schema(
+  {
+    userId: { type: String, required: true },
+    default_source: { type: String, required: true },
+    cardHolderName: { type: String, required: true, lowercase: true },
+    cardNumber: { type: String, required: true, trim: true },
+    customerId: { type: String, required: true },
+    status: { type: String, default: 1 },
+  },
+  { timestamps: true }
+);
 
-
-}, {timestamps: true});
-
-
-module.exports = mongoose.model('CreditCardTable', creditCardSchema);
- 
+module.exports = mongoose.model("CreditCard", creditCardSchema);

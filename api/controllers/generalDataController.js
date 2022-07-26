@@ -17,10 +17,10 @@ var mongoose = require("mongoose"),
   filesUpload = require("../logic/uploadFiles");
 
 //tables
-var GroupTable = mongoose.model("GroupTable"),
-  UserTable = mongoose.model("UserTable"),
-  contactInvitationTable = mongoose.model("contactInvitationTable"),
-  NotificationsTable = mongoose.model("NotificationsTable");
+var GroupTable = mongoose.model("Group"),
+  UserTable = mongoose.model("User"),
+  contactInvitationTable = mongoose.model("contactInvitation"),
+  NotificationsTable = mongoose.model("Notification");
 
 //exported functions
 exports.getLyncpayUsers = getLyncpayUsers;

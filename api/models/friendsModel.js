@@ -1,13 +1,14 @@
-'use strict';
+"use strict";
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var friendsSchema = new mongoose.Schema({
-	userId: {type: String, default:null},
-    friendId:  {type: String, required : true},
-    status: {type: String}
+var friendsSchema = new mongoose.Schema(
+  {
+    userId: { type: String, default: null },
+    friendId: { type: String, required: true },
+    status: { type: String },
+  },
+  { timestamps: true }
+);
 
-}, {timestamps: true});
-
-module.exports = mongoose.model('FriendsTable', friendsSchema);
- 
+module.exports = mongoose.model("Friend", friendsSchema);

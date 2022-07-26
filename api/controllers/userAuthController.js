@@ -17,8 +17,8 @@ var mongoose = require("mongoose"),
   filesUpload = require("../logic/uploadFiles");
 
 //tables
-var OTPTable = mongoose.model("OTPTable"),
-  UserTable = mongoose.model("UserTable");
+var OTPTable = mongoose.model("OTP"),
+  UserTable = mongoose.model("User");
 
 //exported functions
 exports.sendOTP = sendOTP;
@@ -111,12 +111,10 @@ async function verifiyOTP(req, res, next) {
           msg: "Your phone number is verified!",
         });
       else
-        return res
-          .status(401)
-          .send({
-            status: false,
-            msg: "Something Went Wrong. Please Try Again!",
-          });
+        return res.status(401).send({
+          status: false,
+          msg: "Something Went Wrong. Please Try Again!",
+        });
     } else
       return res.json({ status: false, msg: "You have provided a wrong OTP!" });
   } catch (err) {

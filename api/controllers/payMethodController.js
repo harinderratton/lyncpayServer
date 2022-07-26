@@ -18,9 +18,9 @@ var mongoose = require("mongoose"),
   filesUpload = require("../logic/uploadFiles");
 
 //tables
-var GroupTable = mongoose.model("GroupTable"),
-  UserTable = mongoose.model("UserTable"),
-  CreditCardTable = mongoose.model("CreditCardTable");
+var GroupTable = mongoose.model("Group"),
+  UserTable = mongoose.model("User"),
+  CreditCardTable = mongoose.model("CreditCard");
 
 //exported functions
 exports.addNewCreditCard = addNewCreditCard;
