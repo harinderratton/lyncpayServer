@@ -1,7 +1,7 @@
 const multer = require("multer");
 const fs = require("fs");
 
-const uploadUserPic = (req, DIR) => {
+const UPLOAD = (req, DIR) => {
   let dir = DIR;
   console.log("dirdirdir", dir);
   if (!fs.existsSync(dir)) {
@@ -26,4 +26,4 @@ const uploadUserPic = (req, DIR) => {
   });
 };
 
-exports.uploadPic = uploadUserPic;
+exports.UPLOAD = UPLOAD;
