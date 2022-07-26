@@ -7,7 +7,7 @@ const uploadUserPic = (DIR) => {
     fs.mkdirSync(dir, { recursive: true });
   }
 
-  return multer.diskStorage({
+  let storage = multer.diskStorage({
     destination: function (req, file, callback) {
       callback(null, dir);
     },
@@ -17,10 +17,12 @@ const uploadUserPic = (DIR) => {
       callback(null, new Date().getTime() + "." + fileExtn);
     },
   });
+
+  let upload = multer({ storage: storage }).single("file");
+
+  upload(req, body, (err) => {
+    return req || err;
+  });
 };
 
-let uploadPic = (DIR) => {
-  return multer({ storage: uploadUserPic(DIR) }).single("file");
-};
-
-exports.uploadPic = uploadPic;
+exports.uploadPic = uploadUserPic;
