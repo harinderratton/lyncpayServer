@@ -2,12 +2,11 @@
 
 var mongoose = require("mongoose");
 
-var transactionSchema = new mongoose.Schema(
+var paymentRequestSchema = new mongoose.Schema(
   {
     senderId: { type: String, default: null },
     recieverId: { type: String, required: true },
     amount: { type: Number },
-    paymentMethod: { type: String, default: null },
     description: { type: String, default: null },
     picture: { type: String, default: null },
     status: { type: String, default: "Pending" },
@@ -15,4 +14,4 @@ var transactionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Transaction", transactionSchema);
+module.exports = mongoose.model("PaymentRequest", paymentRequestSchema);

@@ -12,7 +12,8 @@ const users = require("./api/models/UsersModel"),
   dynamicData = require("./api/models/dynamicDataModel"),
   friends = require("./api/models/friendsModel"),
   CreditCard = require("./api/models/payMethodModel"),
-  transaction = require("./api/models/transactionModel");
+  transaction = require("./api/models/transactionModel"),
+  paymentRequest = require("./api/models/paymentRequestModel");
 
 //mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/"); // live

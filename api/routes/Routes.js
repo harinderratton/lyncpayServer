@@ -43,6 +43,7 @@ app.route('/getUserNotifications').post(dataControllerMethods.getUserNotificatio
 
 //admin controller routes start
 app.route('/payToFriend').post(transactionMethods.payToFriend)
+app.route('/paymentRequestToFriend').post(transactionMethods.paymentRequestToFriend)
 
 //admin controller routes start
 app.route('/tryLoginAdmin').post(adminMethods.tryLoginAdmin)
