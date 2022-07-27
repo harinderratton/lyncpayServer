@@ -27,21 +27,31 @@ exports.paymentRequestToFriend = paymentRequestToFriend;
 
 async function payToFriend(req, res, next) {
   try {
-    const { id } = req.body;
-    if (errors.indexOf(id) >= 0)
-      return res.json({ status: false, msg: "Please provide the id." });
     let upload = await filesUpload.UPLOAD(
       req,
       res,
       "data/transactions/pictures"
     );
 
+    const { senderId, recieverId, amount, description, paymentMethod } =
+      upload.req.body;
+    if (
+      errors.indexOf(senderId) >= 0 ||
+      errors.indexOf(recieverId) >= 0 ||
+      errors.indexOf(amount) >= 0
+    ) {
+      return res.json({
+        status: false,
+        msg: "Please provide all required Info.",
+      });
+    }
+
     let data = {
-      senderId: req.body.senderId,
-      recieverId: req.body.recieverId,
-      amount: req.body.amount,
-      paymentMethod: req.body.paymentMethod,
-      description: req.body.description,
+      senderId: senderId,
+      recieverId: recieverId,
+      amount: amount,
+      paymentMethod: paymentMethod,
+      description: description,
       status: "Paid",
     };
 
@@ -62,7 +72,13 @@ async function payToFriend(req, res, next) {
 
 async function paymentRequestToFriend(req, res, next) {
   try {
-    const { senderId, recieverId, amount, description } = req.body;
+    let upload = await filesUpload.UPLOAD(
+      req,
+      res,
+      "data/transactions/pictures"
+    );
+
+    const { senderId, recieverId, amount, description } = upload.req.body;
     if (
       errors.indexOf(senderId) >= 0 ||
       errors.indexOf(recieverId) >= 0 ||
@@ -73,11 +89,6 @@ async function paymentRequestToFriend(req, res, next) {
         msg: "Please provide all required Info.",
       });
     }
-    let upload = await filesUpload.UPLOAD(
-      req,
-      res,
-      "data/transactions/pictures"
-    );
 
     let data = {
       senderId: senderId,
